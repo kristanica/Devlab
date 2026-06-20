@@ -15,7 +15,7 @@ export default function useFetchUserProgress(subject) {
 
     const res = await fetch(
       `
-https://devlab-server-railway-master-production.up.railway.app/fireBase/userProgres/${subject}`,
+${import.meta.env.VITE_BACK_END}/fireBase/userProgres/${subject}`,
       {
         method: "GET",
         headers: {

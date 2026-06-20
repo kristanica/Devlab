@@ -23,7 +23,7 @@ const codeCrafterPrompt = async ({
 
     const res = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/openAI/codeCrafter`,
+${import.meta.env.VITE_BACK_END}/openAI/codeCrafter`,
       {
         submittedCode,
         instruction,

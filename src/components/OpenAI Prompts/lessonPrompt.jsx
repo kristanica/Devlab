@@ -12,7 +12,7 @@ const lessonPrompt = async ({ receivedCode, instruction, description,subject }) 
 
     const res = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/openAI/lessonPrompt`,
+${import.meta.env.VITE_BACK_END}/openAI/lessonPrompt`,
       {
         instructions: instruction,
         description,

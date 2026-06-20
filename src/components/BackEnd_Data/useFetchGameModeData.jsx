@@ -16,7 +16,7 @@ export default function useFetchGameModeData() {
 
     const { data } = await axios.get(
       `
-https://devlab-server-railway-master-production.up.railway.app/fireBase/getGameMode/${subject}/${lessonId}/${levelId}/${stageId}`,
+${import.meta.env.VITE_BACK_END}/fireBase/getGameMode/${subject}/${lessonId}/${levelId}/${stageId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -164,7 +164,7 @@ function LessonEdit({ subject, lessonId, levelId, stageId, setShowForm }) {
         const filteredState = filterStateByGameMode(updatedState, activeTab);
         response = await axios.post(
           `
-https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/editStage`,
+${import.meta.env.VITE_BACK_END}/fireBaseAdmin/editStage`,
           {
             category: subject,
             lessonId,
@@ -211,7 +211,7 @@ https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/edi
 
         response = await axios.post(
           `
-https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/editStage`,
+${import.meta.env.VITE_BACK_END}/fireBaseAdmin/editStage`,
           formData,
           {
             headers: {

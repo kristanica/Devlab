@@ -5,7 +5,7 @@ export const deleteSpecificAchievement = async ({ category, uid }) => {
   try {
     const token = await auth.currentUser?.getIdToken(true);
     const response = await axios.post(`
-https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/deleteAchievement`, 
+${import.meta.env.VITE_BACK_END}/fireBaseAdmin/deleteAchievement`, 
        
         {category: category,
         uid: uid},

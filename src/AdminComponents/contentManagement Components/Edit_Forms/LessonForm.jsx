@@ -71,7 +71,7 @@ const addBlocks = () => {
 
       const res = await axios.post(
         `
-https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/uploadVideo`,
+${import.meta.env.VITE_BACK_END}/fireBaseAdmin/uploadVideo`,
         formData,
         {
           headers: {

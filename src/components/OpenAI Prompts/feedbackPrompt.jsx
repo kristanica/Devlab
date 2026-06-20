@@ -20,7 +20,7 @@ export const fetchLevelSummary = async () => {
     const token = await currentUser.getIdToken(true);
     const response = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/openAI/feedbackPrompts`,
+${import.meta.env.VITE_BACK_END}/openAI/feedbackPrompts`,
       { stageFeedbacks: feedbackArray },
       {
         headers: {

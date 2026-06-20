@@ -18,7 +18,7 @@ const codeWhisperPrompt = async ({
 
     const res = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/openAI/codeWhisper`,
+${import.meta.env.VITE_BACK_END}/openAI/codeWhisper`,
       { description, instruction, receivedCode,submittedCode},
       {
         headers: {

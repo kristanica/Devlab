@@ -10,7 +10,7 @@ import loadingDots from "../../assets/Lottie/LoadingDots.json"
 // Game Modes
 import CodeRush from "../CodeRush";
 import BrainBytes from "../BrainBytes";
-import LessonPage from "../../Lessons/LessonPage";
+import LessonPage from "../../pages/Lessons/LessonPage";
 import BugBust from "../BugBust";
 import CodeCrafter from "../CodeCrafter";
 import Gameover_PopUp from "../GameModes_Popups/Gameover_PopUp";

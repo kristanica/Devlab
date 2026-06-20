@@ -17,7 +17,7 @@ const bugBustPrompt = async ({submittedCode,instruction,providedCode,description
 
     const res = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/openAI/bugBustPrompt`,
+${import.meta.env.VITE_BACK_END}/openAI/bugBustPrompt`,
       {
         submittedCode,
         instruction,

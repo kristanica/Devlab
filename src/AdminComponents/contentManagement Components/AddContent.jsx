@@ -123,7 +123,7 @@ export default function NewLessonForm({ subject, close }) {
 
       // 🔹 Create the lesson
       const res = await axios.post(
-        "https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/addNEWLesson",
+        import.meta.env.VITE_BACK_END + "/fireBaseAdmin/addNEWLesson",
         formData,
         {
           headers: {
@@ -143,7 +143,7 @@ export default function NewLessonForm({ subject, close }) {
         videoForm.append("stageId", "Stage1");
 
         await axios.post(
-          "https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/uploadVideo",
+          import.meta.env.VITE_BACK_END + "/fireBaseAdmin/uploadVideo",
           videoForm,
           { headers: { Authorization: `Bearer ${token}` } }
         );

@@ -123,7 +123,7 @@ const createLevelMutation = useMutation({
 
     // ---------------- UPLOAD LEVEL ----------------
     const res = await axios.post(
-      "https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/addNewLevel",
+      import.meta.env.VITE_BACK_END + "/fireBaseAdmin/addNewLevel",
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );
@@ -139,7 +139,7 @@ const createLevelMutation = useMutation({
       videoForm.append("stageId", "Stage1");
 
       await axios.post(
-        "https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/uploadVideo",
+        import.meta.env.VITE_BACK_END + "/fireBaseAdmin/uploadVideo",
         videoForm,
         { headers: { Authorization: `Bearer ${token}`, "x-source": "mobile-app" } }
       );

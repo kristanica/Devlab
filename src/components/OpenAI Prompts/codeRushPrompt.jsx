@@ -16,7 +16,7 @@ const codeRushPrompt = async ({submittedCode,instruction,providedCode,descriptio
 
     const res = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/openAI/codeRushPrompts`,
+${import.meta.env.VITE_BACK_END}/openAI/codeRushPrompts`,
       {submittedCode,instruction,providedCode,description,subject},
       {
         headers: {

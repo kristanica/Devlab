@@ -13,7 +13,7 @@ export default function useFetchAchievements(category) {
     const token = await currentUser.getIdToken(true);
 
     const { data } = await axios.get(
-      `https://devlab-server-railway-master-production.up.railway.app/fireBase/achievements/${category}`,
+      `${import.meta.env.VITE_BACK_END}/fireBase/achievements/${category}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

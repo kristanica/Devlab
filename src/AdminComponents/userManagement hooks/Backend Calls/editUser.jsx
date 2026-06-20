@@ -8,7 +8,7 @@ export const editUser = async ({ uid, state }) => {
 
   const response = await axios.post(
     `
-https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/editUser`,
+${import.meta.env.VITE_BACK_END}/fireBaseAdmin/editUser`,
     {
       uid,
       username: state.username,

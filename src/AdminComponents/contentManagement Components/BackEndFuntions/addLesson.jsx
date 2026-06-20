@@ -5,7 +5,7 @@ const addLesson = async ({ category }) => {
   const token = await auth.currentUser?.getIdToken(true);
 
   const res = await axios.post(
-    "https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/addLesson",
+    import.meta.env.VITE_BACK_END + "/fireBaseAdmin/addLesson",
     { category },
     {
       headers: {

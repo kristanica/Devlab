@@ -9,7 +9,7 @@ export const deleteSpecificProgress = async (uid, subject) => {
 
   const response = await axios.post(
     `
-https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/progress/reset`,
+${import.meta.env.VITE_BACK_END}/fireBaseAdmin/progress/reset`,
     { uid, subject },
     {
       headers: {

@@ -81,7 +81,7 @@ console.log(stageId)
       if (!hasImages) {
         //  JSON request
         return axios.post(
-          `https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/addNEWStage`,
+          `${import.meta.env.VITE_BACK_END}/fireBaseAdmin/addNEWStage`,
           {
             category: subject,
             lessonId,
@@ -120,7 +120,7 @@ console.log(stageId)
         formData.append("stageState", JSON.stringify(filteredStateWithBlocks));
 
         return axios.post(
-          `https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/addNEWStage`,
+          `${import.meta.env.VITE_BACK_END}/fireBaseAdmin/addNEWStage`,
           formData,
           {
             headers: {
@@ -148,7 +148,7 @@ onSuccess: async (res) => {
       formData.append("stageId", newStageId);
 
       await axios.post(
-        `https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/uploadVideo`,
+        `${import.meta.env.VITE_BACK_END}/fireBaseAdmin/uploadVideo`,
         formData,
         {
           headers: { "x-source": "mobile-app", Authorization: `Bearer ${token}` },
@@ -170,7 +170,7 @@ if (file) {
     formData.append("stageId", newStageId);
 
     const res = await axios.post(
-      "https://devlab-server-railway-master-production.up.railway.app/fireBaseAdmin/uploadFile",
+      import.meta.env.VITE_BACK_END + "/fireBaseAdmin/uploadFile",
       formData,
       { headers: { Authorization: `Bearer ${token}` } }
     );

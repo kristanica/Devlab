@@ -12,7 +12,7 @@ const useFetchUserData = () => {
       const uid = currentUser.uid;
 
         const res = await fetch(`
-https://devlab-server-railway-master-production.up.railway.app/fireBase/getSpecificUser/${uid}`, {
+${import.meta.env.VITE_BACK_END}/fireBase/getSpecificUser/${uid}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${token}`,

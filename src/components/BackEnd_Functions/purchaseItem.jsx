@@ -10,7 +10,7 @@ export const purchaseItem = async (itemId, itemCost, itemName) => {
 
     const response = await axios.post(
       `
-https://devlab-server-railway-master-production.up.railway.app/fireBase/purchaseItem`,
+${import.meta.env.VITE_BACK_END}/fireBase/purchaseItem`,
       { itemId, itemCost, itemName },
       {
         headers: {
