@@ -25,7 +25,6 @@ import CssLessons from "./pages/Lessons/CssLessons";
 import JavaScriptLessons from "./pages/Lessons/JavaScriptLessons";
 import DataLessons from "./pages/Lessons/DataLessons";
 
-import { getDoc } from "firebase/firestore";
 // GAME MODES
 import GameModeRouter from "./gameMode/GameModes_Utils/GameModeRouter";
 // Utils
@@ -70,8 +69,8 @@ const App: React.FC = () => {
         const token = await user.getIdTokenResult(true);
         const role = token.claims.role;
 
-        setUser(user);                   
-        setAdmin(role === "admin");      
+        setUser(user);
+        setAdmin(role === "admin");
       } catch (error) {
         console.log("Error fetching user data:", error);
       } finally {
@@ -127,7 +126,7 @@ const App: React.FC = () => {
           >
             <Route index element={<Dashboard />} />
             <Route path="Lessons/Html" element={<HtmlLessons />} />
-            <Route path="Lessons/Css" element={<CssLessons />} /> 
+            <Route path="Lessons/Css" element={<CssLessons />} />
             <Route path="Lessons/JavaScript" element={<JavaScriptLessons />} />
             <Route path="Lessons/Database" element={<DataLessons />} />
 
@@ -138,7 +137,9 @@ const App: React.FC = () => {
 
           <Route
             path="/Main/Lessons/:subject/:lessonId/:levelId/:stageId/:gamemodeId"
-            element={isLoggedIn ? <GameModeRouter /> : <Navigate to="/Login" replace />}
+            element={
+              isLoggedIn ? <GameModeRouter /> : <Navigate to="/Login" replace />
+            }
           />
 
           <Route
