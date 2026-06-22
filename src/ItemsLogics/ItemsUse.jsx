@@ -6,7 +6,7 @@ import { useState } from "react";
 import useUserInventory from "@/hooks/useUserInventory";
 import { useInventoryStore } from "@/store/useInventoryStore";
 import { unlockAchievement } from "@/services/UnlockAchievement";
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 import { useParams } from "react-router-dom";
 import { useAttemptStore } from "@/store/useAttemptStore";
 

@@ -40,8 +40,6 @@ describe("Zustand Attempt Store", () => {
 
   it("should load hearts and default to max", () => {
     // AttemptStore is parameterized by user, which requires a hook invocation or mock user.
-    // The useAttemptStore hook uses auth.currentUser.uid.
-    const storeState = useAttemptStore.getState ? useAttemptStore.getState() : null;
     // Since useAttemptStore is a wrapper hook, we can also test it inside a React context, or call createUseAttemptStore directly:
     const store = createUseAttemptStore("test_user_123");
     

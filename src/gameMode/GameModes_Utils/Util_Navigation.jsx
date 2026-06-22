@@ -1,11 +1,11 @@
-import { unlockStage } from "../../components/BackEnd_Functions/unlockStage";
+import { unlockStage } from '@/services/api/unlockStage';
 import { unlockAchievement } from "@/services/UnlockAchievement";
 import { db } from "@/services/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import CoinSurge from "../../ItemsLogics/CoinSurge";
 import { useInventoryStore } from "@/store/useInventoryStore";
 import { useRewardStore } from "@/store/useRewardStore";
-import useFetchLevelsData from "../../components/BackEnd_Data/useFetchLevelsData";
+import useFetchLevelsData from '@/services/api/useFetchLevelsData';
 import { useUserProgressStore } from "@/store/useUserProgressStore";
 
 // Helper: Add EXP and Coins

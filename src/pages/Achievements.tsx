@@ -6,10 +6,10 @@ import AchievementsOverview from "../components/Achievements/AchievementsOvervie
 import AchievementSection from "../components/Achievements/AchievementSection";
 
 // Data
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 import useUserAchievements from "@/hooks/useUserAchievements";
 import useAchievementsProgressBar from "@/hooks/useAchievementProgressBar";
-import useFetchAchievements from "../components/BackEnd_Data/useFetchAchievements";
+import useFetchAchievements from '@/services/api/useFetchAchievements';
 import { useClaimAchievement } from "../components/Achievements/useClaimAchievement";
 
 const Achievements: React.FC = () => {

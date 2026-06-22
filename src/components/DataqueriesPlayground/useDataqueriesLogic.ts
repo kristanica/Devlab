@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import initSqlJs, { Database } from "sql.js";
 import { toast } from "react-hot-toast";
-import dbPlaygroundEval from "../OpenAI Prompts/dbPlaygroundEval";
+import dbPlaygroundEval from '@/services/openai/dbPlaygroundEval';
 import { initialSQL } from "./initialSQL";
 
 export const useDataqueriesLogic = () => {

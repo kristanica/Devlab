@@ -1,20 +1,21 @@
-# BRIEFING — 2026-06-22T02:47:51Z
+# BRIEFING — 2026-06-22T23:21:56+08:00
 
 ## Mission
-Restructure Devlab React project into feature-based architecture and convert all JS/JSX to strict TypeScript.
+Ensure full Devlab React project feature-based migration, TS conversion, and E2E test validation.
 
 ## 🔒 My Identity
 - Archetype: sentinel
-- Working directory: C:\Users\lain\Documents\code\Devlab\.agents\sentinel
-- Orchestrator: af80f8dc-c13c-4434-a3ec-7fbec125eba0
+- Working directory: C:\Users\lain\documents\code\devlab\.agents\sentinel
+- Orchestrator: 9c3d0213-1638-4259-bb09-5cd9e39120a7
 - Victory Auditor: TBD
 
 ## 🔒 Key Constraints
 - No technical decisions — relay only
 - Victory Audit is MANDATORY before reporting completion
+- MSW must be used to mock all OpenAI API endpoints
 
 ## User Context
-- **Last user request**: Restructure the Devlab React project into a feature-based architecture and convert all `.js`/`.jsx` files to strict TypeScript (`.ts`/`.tsx`) with proper type casting, using the pre-defined global types in `src/types`. Implement the parallel E2E testing track.
+- **Last user request**: Restructure Devlab React to feature-based architecture, convert .js/.jsx to strict TS/tsx, refactor auth/admin, verify E2E tests, and periodically run the build command to catch issues early.
 - **Pending clarifications**: none
 - **Delivered results**: none
 
@@ -27,6 +28,6 @@ Restructure Devlab React project into feature-based architecture and convert all
 - **Retry count**: 0
 
 ## Artifact Index
-- C:\Users\lain\Documents\code\Devlab\ORIGINAL_REQUEST.md — Verbatim user request record
-- C:\Users\lain\Documents\code\Devlab\.agents\ORIGINAL_REQUEST.md — Verbatim user request record in agent workspace
-- C:\Users\lain\Documents\code\Devlab\.agents\sentinel\BRIEFING.md — Sentinel persistent memory and state tracker
+- C:\Users\lain\documents\code\devlab\ORIGINAL_REQUEST.md — Authoritative user request record
+- C:\Users\lain\documents\code\devlab\.agents\ORIGINAL_REQUEST.md — Verbatim user request copy inside agent workspace
+- C:\Users\lain\documents\code\devlab\.agents\sentinel\BRIEFING.md — Sentinel persistent memory and state tracker

@@ -31,6 +31,20 @@ export let mockCurrentUser: any = null;
 let authStateListeners: Array<(user: any) => void> = [];
 
 export const setMockUser = (user: any) => {
+  if (user) {
+    if (!user.getIdTokenResult) {
+      user.getIdTokenResult = async () => ({ claims: { role: user.role || "user" } });
+    }
+    if (!user.getIdToken) {
+      user.getIdToken = async () => "mock-token-id";
+    }
+    if (user.emailVerified === undefined) {
+      user.emailVerified = true;
+    }
+    if (!user.reload) {
+      user.reload = async () => Promise.resolve();
+    }
+  }
   mockCurrentUser = user;
   authStateListeners.forEach((listener) => listener(user));
 };
@@ -167,7 +181,7 @@ const resolveFields = (currentData: any, updateData: any) => {
 vi.mock("firebase/auth", () => {
   return {
     getAuth: () => ({
-      currentUser: mockCurrentUser,
+      get currentUser() { return mockCurrentUser; },
       onAuthStateChanged: (callback: (user: any) => void) => {
         authStateListeners.push(callback);
         callback(mockCurrentUser);
@@ -181,6 +195,17 @@ vi.mock("firebase/auth", () => {
       },
       setPersistence: async () => Promise.resolve(),
     }),
+    onAuthStateChanged: (auth: any, callback: (user: any) => void) => {
+      authStateListeners.push(callback);
+      callback(mockCurrentUser);
+      return () => {
+        authStateListeners = authStateListeners.filter((l) => l !== callback);
+      };
+    },
+    signOut: async () => {
+      setMockUser(null);
+      return Promise.resolve();
+    },
     signInWithEmailAndPassword: async (auth: any, email: string) => {
       const matchedUser = Object.values(mockDb.users).find((u) => u.email === email);
       if (!matchedUser) {
@@ -213,6 +238,7 @@ vi.mock("firebase/auth", () => {
     },
     sendEmailVerification: async () => Promise.resolve(),
     sendPasswordResetEmail: async () => Promise.resolve(),
+    setPersistence: async () => Promise.resolve(),
     browserLocalPersistence: "local",
     browserSessionPersistence: "session",
   };

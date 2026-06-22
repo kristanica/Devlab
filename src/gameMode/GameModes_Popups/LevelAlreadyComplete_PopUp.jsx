@@ -6,7 +6,7 @@ import loadingDots from "../../assets/Lottie/LoadingDots.json";
 import { useState, useCallback, useEffect } from "react";
 import { playSound } from "@/utils/DevlabSoundHandler";
 
-import { unlockStage } from "../../components/BackEnd_Functions/unlockStage";
+import { unlockStage } from '@/services/api/unlockStage';
 
 function LevelAlreadyCompleted({ subj, lessonId, LevelId }) {
   const navigate = useNavigate();

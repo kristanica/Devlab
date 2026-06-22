@@ -14,6 +14,7 @@ vi.mock("react-hot-toast", () => ({
     error: vi.fn(),
     success: vi.fn(),
   },
+  Toaster: () => null,
 }));
 
 describe("Achievements E2E Tests", () => {

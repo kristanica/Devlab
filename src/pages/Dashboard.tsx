@@ -17,7 +17,7 @@ import InventoryVault from "../components/Dashboard/InventoryVault";
 import useLevelBar from "@/hooks/useLevelBar";
 import useSubjProgressBar from "@/hooks/useSubjProgressBar";
 import useUserInventory from "@/hooks/useUserInventory";
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData.jsx";
+import useFetchUserData from '@/services/api/useFetchUserData';
 
 const Dashboard: React.FC = () => {
   const { userData, isLoading } = useFetchUserData();

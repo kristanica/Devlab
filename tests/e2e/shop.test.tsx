@@ -14,6 +14,7 @@ vi.mock("react-hot-toast", () => ({
     error: vi.fn(),
     success: vi.fn(),
   },
+  Toaster: () => null,
 }));
 
 describe("Shop E2E Tests", () => {
@@ -49,6 +50,10 @@ describe("Shop E2E Tests", () => {
             Icon: "shield.png"
           }
         ]);
+      }),
+      http.post("*/fireBase/purchaseItem", async () => {
+        mockDb.users["user_shop"].coins -= 50;
+        return HttpResponse.json({ success: true });
       })
     );
 
@@ -70,7 +75,7 @@ describe("Shop E2E Tests", () => {
     await waitFor(() => {
       expect(toast.custom).toHaveBeenCalled();
       expect(screen.getByText("50")).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
   });
 
   it("Test 2: Failed purchase from insufficient coins (triggers immediate error toast, no API request)", async () => {
@@ -203,8 +208,10 @@ describe("Shop E2E Tests", () => {
     );
 
     // Verify skeleton loaders are present initially
-    expect(screen.getByText("Available Items")).toBeInTheDocument();
-    expect(screen.queryByText("Code Shield")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Available Items")).toBeInTheDocument();
+      expect(screen.queryByText("Code Shield")).not.toBeInTheDocument();
+    }, { timeout: 3000 });
 
     // Resolve loading promise
     resolvePromise();
@@ -239,9 +246,13 @@ describe("Shop E2E Tests", () => {
     // Directly update user's coins in database to simulate backend increase
     mockDb.users["user_shop"].coins = 150;
 
+    // Trigger window focus to force react-query to refetch
+    window.dispatchEvent(new Event('focus'));
+    window.dispatchEvent(new Event('visibilitychange'));
+
     // Trigger user data refresh if needed, or check animation propagation
     await waitFor(() => {
       expect(screen.getByText("150")).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
   });
 });

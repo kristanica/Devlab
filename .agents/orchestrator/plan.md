@@ -39,9 +39,10 @@
 
 ## 4. Verification Methods
 - Zero errors in `tsc --noEmit`.
-- Successful production build (`npm run build`).
+- Successful production build (`npm run build` or `pnpm run build`) run periodically after each major change to catch compile/build issues early.
 - 100% passing tests in E2E test suite.
 - Clean Forensic Auditor report.
 
 ## 5. Key Constraints
 - **OpenAI/MSW Constraint**: The OpenAI API keys/credits are depleted. The E2E Testing Track MUST strictly use MSW (Mock Service Worker) to mock all OpenAI API responses during testing. Live integration tests hitting the actual OpenAI API endpoints are strictly prohibited.
+- **Periodic Build Constraint**: All worker agents must run build checks (`pnpm run build` or `npm run build`) periodically during migration, not just at the final step, to catch import and bundler-specific errors early.

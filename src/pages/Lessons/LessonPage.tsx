@@ -65,7 +65,7 @@ const LessonPage: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <GameFooter isCorrect={isCorrect} />
+      <GameFooter isCorrect={isCorrect} setLevelComplete={() => {}} setShowCodeWhisper={() => {}} setAlreadyComplete={() => {}} />
     </div>
   );
 };

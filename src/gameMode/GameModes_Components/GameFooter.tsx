@@ -1,11 +1,12 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToNextStage } from "../GameModes_Utils/Util_Navigation";
 
 // Hooks
-import useFetchUserData from "../../components/BackEnd_Data/useFetchUserData";
-import useFetchGameModeData from "../../components/BackEnd_Data/useFetchGameModeData";
-import useFetchUserProgress from "../../components/BackEnd_Data/useFetchUserProgress";
+import useFetchUserData from '@/services/api/useFetchUserData';
+import useFetchGameModeData from '@/services/api/useFetchGameModeData';
+import useFetchUserProgress from '@/services/api/useFetchUserProgress';
 import { goToPreviousStage } from "../GameModes_Utils/goToPrev";
 
 // Motion

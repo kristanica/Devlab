@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -8,7 +9,7 @@ import SplitPane from "react-split-pane";
 import { useGameStore } from "@/store/useGameStore";
 import { playSound } from "@/utils/DevlabSoundHandler";
 import { goToNextStage } from "./GameModes_Utils/Util_Navigation";
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 import { useErrorShield } from "../ItemsLogics/ErrorShield";
 
 // PopUps

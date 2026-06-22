@@ -24,12 +24,12 @@ import Evaluation_Popup from "../../GameModes_Popups/Evaluation_Popup";
 import { checkCssAchievements } from "../../../components/Achievements Utils/Css_KeyExtract";
 import { unlockAchievement } from "@/services/UnlockAchievement";
 import { useGameStore } from "@/store/useGameStore";
-import useFetchUserData from "../../../components/BackEnd_Data/useFetchUserData";
-import useFetchGameModeData from "../../../components/BackEnd_Data/useFetchGameModeData";
-import useFetchUserProgress from "../../../components/BackEnd_Data/useFetchUserProgress";
+import useFetchUserData from '@/services/api/useFetchUserData';
+import useFetchGameModeData from '@/services/api/useFetchGameModeData';
+import useFetchUserProgress from '@/services/api/useFetchUserProgress';
 
 // Open AI
-import lessonPrompt from "../../../components/OpenAI Prompts/lessonPrompt";
+import lessonPrompt from '@/services/openai/lessonPrompt';
 
 type TabTypes = "HTML" | "CSS";
 

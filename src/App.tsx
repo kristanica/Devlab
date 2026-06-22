@@ -36,9 +36,14 @@ import { loadSounds } from "./utils/DevlabSoundHandler";
 import AuthActionHandler from "./components/AuthActionHandler";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
-
 const App = () => {
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  }));
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAdmin, setAdmin] = useState<boolean>(false);
@@ -71,6 +76,7 @@ const App = () => {
 
         setUser(currentUser);
         setAdmin(role === "admin");
+        console.log("[App] Logged in successfully with uid:", currentUser.uid);
       } catch (error) {
         console.log("Error fetching user data:", error);
       } finally {

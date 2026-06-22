@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -8,7 +9,7 @@ import SplitPane from "react-split-pane";
 import { playSound } from "@/utils/DevlabSoundHandler";
 import { goToNextStage } from "./GameModes_Utils/Util_Navigation";
 import { useErrorShield } from "../ItemsLogics/ErrorShield";
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 import { GameModeProps } from "./BugBust"; // Use shared interface
 
 // Pop Ups

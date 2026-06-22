@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Gameover from "../../assets/Lottie/SadSignout.json";
 import Lottie from "lottie-react";
-import { callGameOver } from "../../components/BackEnd_Functions/callGameOver";
+import { callGameOver } from '@/services/api/callGameOver';
 import { useState, useEffect } from "react";
 import { useAttemptStore } from "@/store/useAttemptStore";
 import { useInventoryStore } from "@/store/useInventoryStore";

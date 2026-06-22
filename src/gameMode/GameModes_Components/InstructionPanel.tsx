@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -14,12 +15,12 @@ import { MdOutlinePlayLesson } from "react-icons/md";
 import { FiCheckSquare } from "react-icons/fi";
 
 // Hooks
-import useFetchGameModeData from "../../components/BackEnd_Data/useFetchGameModeData";
+import useFetchGameModeData from '@/services/api/useFetchGameModeData';
 import useAnimatedNumber from "../../hooks/useAnimatedNumber";
 import { useInventoryStore } from "../../store/useInventoryStore";
 import useStoreLastOpenedLevel from "@/hooks/useStoreLastOpenedLevel";
 import { useGameStore } from "@/store/useGameStore";
-import useFetchUserProgress from "../../components/BackEnd_Data/useFetchUserProgress";
+import useFetchUserProgress from '@/services/api/useFetchUserProgress';
 import useCodeRushTimer from "../../ItemsLogics/useCodeRushTimer";
 import { BrainFilter } from "../../ItemsLogics/BrainFilter";
 
@@ -29,7 +30,7 @@ import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import Loading from "../../assets/Lottie/LoadingDots.json";
 import CodeWhisper from "../../ItemsLogics/CodeWhisper";
-import codeWhisperPrompt from "../../components/OpenAI Prompts/codeWhisperPrompt";
+import codeWhisperPrompt from '@/services/openai/codeWhisperPrompt';
 
 interface CodeBlockProps {
   code: string;

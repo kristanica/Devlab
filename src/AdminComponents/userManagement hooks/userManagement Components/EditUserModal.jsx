@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteProgress } from "../Functions/useDeleteProgress";
 import { useDeleteSpecificAchievement } from "../Functions/useDeleteSpecificAchievement";
 import DeleteConfirmationModal from "../Modals/DeleteConfirmModal";
-import useFetchLevelsData from "../../../components/BackEnd_Data/useFetchLevelsData";
+import useFetchLevelsData from '@/services/api/useFetchLevelsData';
 
 const categories = ["Html", "Css", "JavaScript", "Database"];
 

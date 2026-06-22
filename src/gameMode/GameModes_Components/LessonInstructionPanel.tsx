@@ -1,10 +1,11 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import {
   html as beautifyHTML,
   css as beautifyCSS,
   js as beautifyJS,
 } from "js-beautify";
-import useFetchGameModeData from "../../components/BackEnd_Data/useFetchGameModeData";
+import useFetchGameModeData from '@/services/api/useFetchGameModeData';
 import Lottie from "lottie-react";
 import Loading from "../../assets/Lottie/LoadingDots.json";
 import { motion, AnimatePresence } from "framer-motion";

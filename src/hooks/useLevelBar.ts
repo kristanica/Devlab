@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from "../services/api/useFetchUserData";
 
 export default function useLevelBar() {
   const [animatedExp, setAnimatedExp] = useState<number>(0);

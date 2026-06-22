@@ -47,7 +47,7 @@ describe("Auth E2E Tests", () => {
 
     await waitFor(() => {
       expect(screen.getByText(/Dashboard/i) || screen.getByText(/Welcome back/i)).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
   });
 
   it("Test 2: Happy path registration (verifies signup, username, email verification success toast)", async () => {

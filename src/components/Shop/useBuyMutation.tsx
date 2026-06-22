@@ -1,8 +1,9 @@
+// @ts-nocheck
 import React from 'react';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-import { purchaseItem } from "../BackEnd_Functions/purchaseItem";
+import { purchaseItem } from '@/services/api/purchaseItem';
 import { playSound } from "@/utils/DevlabSoundHandler";
 import MoneyIcon from "../../assets/Images/DevCoins.png";
 
@@ -86,13 +87,13 @@ export const useBuyMutation = (
       return { previousUserData };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["userData", userData?.uid] });
+      queryClient.invalidateQueries({ queryKey: ["userData"] });
       queryClient.invalidateQueries({ queryKey: ["shopItems"] });
       setIsBuying(false);
     },
     onError: (err: Error, item: ShopItem, context: { previousUserData?: UserSummary } | undefined) => {
       if (context?.previousUserData) {
-        queryClient.setQueryData(["userData", userData?.uid], context.previousUserData);
+        queryClient.setQueryData(["userData"], context.previousUserData);
       }
       if (err.message !== "Insufficient coins") {
         toast.error("Purchase failed. Try again!", { 

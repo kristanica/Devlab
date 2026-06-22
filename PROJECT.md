@@ -53,16 +53,16 @@ src/
 ### Track 1: E2E Testing Track (Opaque-Box)
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
-| E1 | E2E Test Infra Setup | Install test runner (Vitest + JSDOM or Playwright) and configure `TEST_INFRA.md`. | None | PLANNED |
-| E2 | Requirement-driven Tests | Implement Tier 1-4 tests (Auth, GameModes, Shop, Lessons, Inventory, Achievements). | E1 | PLANNED |
+| E1 | E2E Test Infra Setup | Install test runner (Vitest + JSDOM or Playwright) and configure `TEST_INFRA.md`. | None | DONE |
+| E2 | Requirement-driven Tests | Implement Tier 1-4 tests (Auth, GameModes, Shop, Lessons, Inventory, Achievements). | E1 | IN_PROGRESS |
 | E3 | Publish TEST_READY.md | Verify test suite coverage and generate `TEST_READY.md`. | E2 | PLANNED |
 
 ### Track 2: Implementation Track
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
 | M1 | Prep & TypeScript Setup | Install `typescript`, `@types/*`, configure `tsconfig.json` and fix `src/main.jsx` -> `src/main.tsx`. | None | DONE |
-| M2 | Global Services & Stores | Migrate & convert `src/Firebase/Firebase.js` to `src/services/firebase.ts`, migrate Zustand stores to `src/store/`, move hooks to `src/hooks/`. | M1 | IN_PROGRESS |
-| M3 | Move & Convert Auth & Admin | Migrate login, register, reset password, content management, and user management to `src/features/auth` and `src/features/admin`. | M2 | PLANNED |
+| M2 | Global Services & Stores | Migrate & convert `src/Firebase/Firebase.js` to `src/services/firebase.ts`, migrate Zustand stores to `src/store/`, move hooks to `src/hooks/`. | M1 | DONE |
+| M3 | Move & Convert Auth & Admin | Migrate login, register, reset password, content management, and user management to `src/features/auth` and `src/features/admin`. | M2 | IN_PROGRESS |
 | M4 | Move & Convert Core Features | Migrate game modes, lessons, shop, inventory, achievements, and dashboard to `src/features/`. | M3 | PLANNED |
 | M5 | Reusable Components Clean-up | Relocate reusable elements in `src/components/ui` or layout, remove dead code/empty folders. | M4 | PLANNED |
 | M6 | Fix Imports & E2E Validation | Run `tsc --noEmit`, resolve all import issues, pass all tests in `TEST_READY.md`. | M5, E3 | PLANNED |

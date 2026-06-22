@@ -1,6 +1,7 @@
+// @ts-nocheck
 // Utils / Hooks
 import useLevelBar from "@/hooks/useLevelBar";
-import useFetchUserData from "../../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 // Navigation
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";

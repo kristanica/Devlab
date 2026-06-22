@@ -1,6 +1,6 @@
-import bugBustPrompt from "../../components/OpenAI Prompts/bugBustPrompt";
-import codeCrafterPrompt from "../../components/OpenAI Prompts/codeCrafterPrompt";
-import codeRushPrompt from "../../components/OpenAI Prompts/codeRushPrompt";
+import bugBustPrompt from '@/services/openai/bugBustPrompt';
+import codeCrafterPrompt from '@/services/openai/codeCrafterPrompt';
+import codeRushPrompt from '@/services/openai/codeRushPrompt';
 
 import { useGameStore } from "@/store/useGameStore";
 import { goToNextStage } from "./Util_Navigation";

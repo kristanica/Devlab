@@ -7,7 +7,7 @@ import Lottie from "lottie-react";
 import { useIsMutating } from "@tanstack/react-query";
 import Loading from "../assets/Lottie/LoadingDots.json";
 
-import useFetchLevelsData from "../components/BackEnd_Data/useFetchLevelsData";
+import useFetchLevelsData from '@/services/api/useFetchLevelsData';
 import AddContent from "./contentManagement Components/AddContent";
 import LessonEdit from "./contentManagement Components/LessonEdit";
 import LevelEdit from "./contentManagement Components/LevelEdit";

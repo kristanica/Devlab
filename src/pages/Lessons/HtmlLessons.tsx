@@ -5,8 +5,8 @@ import LessonAbout from "../../components/Lessons/LessonAbout";
 import LessonCurriculum from "../../components/Lessons/LessonCurriculum";
 import LessonLockedModal from "../../components/Lessons/LessonLockedModal";
 
-import useFetchUserProgress from "../../components/BackEnd_Data/useFetchUserProgress";
-import useFetchLevelsData from "../../components/BackEnd_Data/useFetchLevelsData";
+import useFetchUserProgress from '@/services/api/useFetchUserProgress';
+import useFetchLevelsData from '@/services/api/useFetchLevelsData';
 
 const HtmlLessons: React.FC = () => {
   const subject = "Html";

@@ -21,11 +21,11 @@ import Evaluation_Popup from "../../GameModes_Popups/Evaluation_Popup";
 // Utils
 import { extractSqlKeywords } from "../../../components/Achievements Utils/Db_KeyExtract";
 import { unlockAchievement } from "@/services/UnlockAchievement";
-import useFetchUserData from "../../../components/BackEnd_Data/useFetchUserData";
-import useFetchGameModeData from "../../../components/BackEnd_Data/useFetchGameModeData";
+import useFetchUserData from '@/services/api/useFetchUserData';
+import useFetchGameModeData from '@/services/api/useFetchGameModeData';
 import { useGameStore } from "@/store/useGameStore";
-import useFetchUserProgress from "../../../components/BackEnd_Data/useFetchUserProgress";
-import lessonPromptDb from "../../../components/OpenAI Prompts/lessonPromptDb";
+import useFetchUserProgress from '@/services/api/useFetchUserProgress';
+import lessonPromptDb from '@/services/openai/lessonPromptDb';
 
 const initialSQL = `
 CREATE TABLE students (

@@ -1,7 +1,7 @@
 import { db } from "../services/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import useFetchUserProgress from "../components/BackEnd_Data/useFetchUserProgress";
+import useFetchUserProgress from "../services/api/useFetchUserProgress";
 
 export default function useSubjProgressBar(subject: string) {
   const { completedLevels } = useFetchUserProgress(subject);

@@ -7,13 +7,13 @@ import loadingDots from "../../assets/Lottie/LoadingDots.json"
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { playSound } from "@/utils/DevlabSoundHandler";
 
-import useFetchUserData from "../../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 import useAnimatedNumber from "@/hooks/useAnimatedNumber";
 import { unlockAchievement } from "@/services/UnlockAchievement";
-import { fetchLevelSummary } from "../../components/OpenAI Prompts/feedbackPrompt";
-import { unlockStage } from "../../components/BackEnd_Functions/unlockStage";
+import { fetchLevelSummary } from '@/services/openai/feedbackPrompt';
+import { unlockStage } from '@/services/api/unlockStage';
 import { useRewardStore } from "@/store/useRewardStore";
-import useFetchLevelsData from "../../components/BackEnd_Data/useFetchLevelsData";
+import useFetchLevelsData from '@/services/api/useFetchLevelsData';
 import { useAttemptStore } from "@/store/useAttemptStore";
 import { useInventoryStore } from "@/store/useInventoryStore";
 

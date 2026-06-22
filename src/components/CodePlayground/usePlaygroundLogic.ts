@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import codePlaygroundEval from "../OpenAI Prompts/codePlaygroundEval";
+import codePlaygroundEval from '@/services/openai/codePlaygroundEval';
 
 export const usePlaygroundLogic = () => {
   const tabs = ["HTML", "CSS", "JavaScript"] as const;

@@ -3,8 +3,9 @@ import { mockDb } from "./mockFirebase";
 
 export const handlers = [
   // User Profile
-  http.get("*/fireBase/getSpecificUser/:uid", ({ params }) => {
+  http.get("*/fireBase/getSpecificUser/:uid", ({ params, request }) => {
     const uid = params.uid as string;
+    console.log("[MSW] getSpecificUser hit for UID:", uid, "URL:", request.url);
     const userData = mockDb.users[uid] || {
       uid,
       email: "test@example.com",
@@ -14,6 +15,7 @@ export const handlers = [
       coins: 100,
       bio: "",
     };
+    console.log("[MSW] Returning userData:", userData);
     return HttpResponse.json(userData);
   }),
 

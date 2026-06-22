@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useUserAchievements from "./useUserAchievements";
-import useFetchAchievements from "../components/BackEnd_Data/useFetchAchievements";
+import useFetchAchievements from "../services/api/useFetchAchievements";
 
 export default function useAchievementsProgressBar(userId: string | undefined, subject: string) {
   const { achievements: allAchievements, isLoading: loadingAll } = useFetchAchievements(subject);

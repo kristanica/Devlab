@@ -8,7 +8,7 @@ import SettingsActions from "../components/Settings/SettingsActions";
 import SettingsModals from "../components/Settings/SettingsModals";
 
 // Hooks
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchUserData from '@/services/api/useFetchUserData';
 import { useSettingsActions } from "../components/Settings/useSettingsActions";
 
 const Settings: React.FC = () => {

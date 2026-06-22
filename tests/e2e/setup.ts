@@ -4,6 +4,9 @@ import { setupServer } from "msw/node";
 import { handlers } from "./mocks/handlers";
 import { resetMockDb } from "./mocks/mockFirebase";
 
+// Set Env Variable
+vi.stubEnv("VITE_BACK_END", "http://localhost:3000");
+
 // Start MSW Server
 export const server = setupServer(...handlers);
 

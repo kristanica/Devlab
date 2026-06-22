@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import useFetchShopItems from "../components/BackEnd_Data/useFethShopItems";
-import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
+import useFetchShopItems from '@/services/api/useFethShopItems';
+import useFetchUserData from '@/services/api/useFetchUserData';
 import useAnimatedNumber from "../hooks/useAnimatedNumber";
 
 import ShopHeader from "../components/Shop/ShopHeader";
