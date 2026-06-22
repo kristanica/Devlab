@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 
 export default function useFetchLevelsData(subject) {
   // Track Firebase user and loading state

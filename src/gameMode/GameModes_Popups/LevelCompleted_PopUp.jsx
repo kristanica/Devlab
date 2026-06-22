@@ -5,17 +5,17 @@ import confetti from "../../assets/Lottie/Confetti.json";
 import smallLoading from "../../assets/Lottie/loadingSmall.json";
 import loadingDots from "../../assets/Lottie/LoadingDots.json"
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { playSound } from "../../components/Custom Hooks/DevlabSoundHandler";
+import { playSound } from "@/utils/DevlabSoundHandler";
 
 import useFetchUserData from "../../components/BackEnd_Data/useFetchUserData";
-import useAnimatedNumber from "../../components/Custom Hooks/useAnimatedNumber";
-import { unlockAchievement } from "../../components/Custom Hooks/UnlockAchievement";
+import useAnimatedNumber from "@/hooks/useAnimatedNumber";
+import { unlockAchievement } from "@/services/UnlockAchievement";
 import { fetchLevelSummary } from "../../components/OpenAI Prompts/feedbackPrompt";
 import { unlockStage } from "../../components/BackEnd_Functions/unlockStage";
-import { useRewardStore } from "../../ItemsLogics/Items-Store/useRewardStore";
+import { useRewardStore } from "@/store/useRewardStore";
 import useFetchLevelsData from "../../components/BackEnd_Data/useFetchLevelsData";
-import { useAttemptStore } from "../GameModes_Utils/useAttemptStore";
-import { useInventoryStore } from "../../ItemsLogics/Items-Store/useInventoryStore";
+import { useAttemptStore } from "@/store/useAttemptStore";
+import { useInventoryStore } from "@/store/useInventoryStore";
 
 function LevelCompleted_PopUp({ subj, lessonId, LevelId, heartsRemaining, setLevelComplete, resetHearts }) {
   const navigate = useNavigate();

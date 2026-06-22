@@ -3,13 +3,28 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { purchaseItem } from "../BackEnd_Functions/purchaseItem";
-import { playSound } from "../Custom Hooks/DevlabSoundHandler";
+import { playSound } from "@/utils/DevlabSoundHandler";
 import MoneyIcon from "../../assets/Images/DevCoins.png";
 
-export const useBuyMutation = (userData: any, setIsBuying: (val: boolean) => void) => {
+interface ShopItem {
+  id: string;
+  title: string;
+  cost: number;
+  Icon: string;
+}
+
+interface UserSummary {
+  uid?: string;
+  coins?: number;
+}
+
+export const useBuyMutation = (
+  userData: UserSummary | null | undefined,
+  setIsBuying: (val: boolean) => void
+) => {
   const queryClient = useQueryClient();
 
-  const showPurchaseToast = (item: any) => {
+  const showPurchaseToast = (item: ShopItem) => {
     toast.custom(
       (t) => (
         <motion.div
@@ -44,11 +59,11 @@ export const useBuyMutation = (userData: any, setIsBuying: (val: boolean) => voi
   };
 
   return useMutation({
-    mutationFn: async (item: any) => purchaseItem(item.id, item.cost, item.Icon),
-    onMutate: async (item: any) => {
+    mutationFn: async (item: ShopItem) => purchaseItem(item.id, item.cost, item.Icon),
+    onMutate: async (item: ShopItem) => {
       playSound("purchase"); 
       await queryClient.cancelQueries({ queryKey: ["userData"] });
-      const previousUserData: any = queryClient.getQueryData(["userData"]) || userData;
+      const previousUserData = (queryClient.getQueryData(["userData"]) || userData) as UserSummary | undefined;
       
       if (!previousUserData || previousUserData.coins < item.cost) {
         toast.error("Not enough DevCoins!", { 
@@ -75,7 +90,7 @@ export const useBuyMutation = (userData: any, setIsBuying: (val: boolean) => voi
       queryClient.invalidateQueries({ queryKey: ["shopItems"] });
       setIsBuying(false);
     },
-    onError: (err, item, context: any) => {
+    onError: (err: Error, item: ShopItem, context: { previousUserData?: UserSummary } | undefined) => {
       if (context?.previousUserData) {
         queryClient.setQueryData(["userData", userData?.uid], context.previousUserData);
       }

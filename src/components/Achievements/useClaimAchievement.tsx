@@ -1,16 +1,35 @@
 import React from 'react';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../Firebase/Firebase";
+import { db } from "../../services/firebase";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import Claim from "../../assets/Lottie/ClaimAchievement.json";
 
-export const useClaimAchievement = (userData: any, setLoadingClaim: (val: boolean) => void) => {
+interface AchievementItem {
+  id: string;
+  title: string;
+  expReward?: number;
+  coinsReward?: number;
+}
+
+interface UserSummary {
+  uid?: string;
+  exp?: number;
+  userLevel?: number;
+  coins?: number;
+}
+
+type AchievementCache = Record<string, { isClaimed?: boolean }>;
+
+export const useClaimAchievement = (
+  userData: UserSummary | null | undefined,
+  setLoadingClaim: (val: boolean) => void
+) => {
   const queryClient = useQueryClient();
 
-  const showClaimToast = (item: any) => {
+  const showClaimToast = (item: AchievementItem) => {
     toast.custom(
       (t) => (
         <motion.div
@@ -49,7 +68,7 @@ export const useClaimAchievement = (userData: any, setLoadingClaim: (val: boolea
   };
 
   return useMutation({
-    mutationFn: async (achievement: any) => {
+    mutationFn: async (achievement: AchievementItem) => {
       if (!userData?.uid) throw new Error("No user ID");
       const userId = userData.uid;
       const userRef = doc(db, "Users", userId);
@@ -75,15 +94,15 @@ export const useClaimAchievement = (userData: any, setLoadingClaim: (val: boolea
 
       return achievement.id;
     },
-    onMutate: async (achievement: any) => {
+    onMutate: async (achievement: AchievementItem) => {
       showClaimToast(achievement);
 
-      queryClient.setQueryData(["userAchievements", userData?.uid], (oldData: any) => ({
+      queryClient.setQueryData(["userAchievements", userData?.uid], (oldData: AchievementCache | undefined) => ({
         ...oldData,
         [achievement.id]: { ...oldData?.[achievement.id], isClaimed: true },
       }));
 
-      queryClient.setQueryData(["User_Details", userData?.uid], (oldData: any) => ({
+      queryClient.setQueryData(["User_Details", userData?.uid], (oldData: UserSummary | undefined) => ({
         ...oldData,
         exp: (oldData?.exp || 0) + (achievement.expReward || 0),
         userLevel:

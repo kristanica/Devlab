@@ -7,8 +7,8 @@ import AchievementSection from "../components/Achievements/AchievementSection";
 
 // Data
 import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
-import useUserAchievements from "../components/Custom Hooks/useUserAchievements";
-import useAchievementsProgressBar from "../components/Custom Hooks/useAchievementProgressBar";
+import useUserAchievements from "@/hooks/useUserAchievements";
+import useAchievementsProgressBar from "@/hooks/useAchievementProgressBar";
 import useFetchAchievements from "../components/BackEnd_Data/useFetchAchievements";
 import { useClaimAchievement } from "../components/Achievements/useClaimAchievement";
 

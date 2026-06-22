@@ -13,8 +13,7 @@ import { motion } from "framer-motion";
 
 // Utils
 import ItemsUse from "../../ItemsLogics/ItemsUse";
-// @ts-ignore
-import { useGameStore } from "../../components/OpenAI Prompts/useBugBustStore";
+import { useGameStore } from "@/store/useGameStore";
 import { gameModeSubmitHandlers } from "../GameModes_Utils/gameModeSubmitHandler";
 
 // Lottie
@@ -115,31 +114,31 @@ const GameFooter: React.FC<GameFooterProps> = ({
         </div>
       )}
 
-      <div className="h-12 md:h-14 shrink-0 bg-[#06060a] border-t border-[#1e1e2e] px-3 md:px-6 py-1 flex justify-between items-center text-slate-200 sticky bottom-0 z-20 font-inter">
+      <div className="h-14 md:h-16 shrink-0 bg-[#06060a]/95 backdrop-blur-md border-t border-[#1e1e2e] px-4 md:px-6 py-2 flex justify-between items-center text-slate-200 sticky bottom-0 z-20 font-inter shadow-[0_-4px_30px_rgba(0,0,0,0.6)]">
         
         {/* Left: Items & Level Info */}
-        <div className="flex items-center gap-4 flex-shrink min-w-0">
+        <div className="flex items-center gap-4 flex-1 justify-start min-w-0 overflow-hidden">
           <ItemsUse setShowCodeWhisper={setShowCodeWhisper} gamemodeId={gamemodeId} />
-          <div className="flex flex-col hidden sm:flex">
+          <div className="flex flex-col hidden sm:flex truncate">
             <p className="text-xs md:text-sm font-bold text-white tracking-wide truncate">
               {levelData ? `${levelData.levelOrder}. ${levelData.title}` : "Loading..."}
             </p>
-            <p className="text-[10px] md:text-xs font-semibold text-emerald-400">
+            <p className="text-[10px] md:text-xs font-semibold text-emerald-400 uppercase tracking-widest mt-0.5">
               {levelData ? `+ ${levelData.expReward} XP` : ""}
             </p>
           </div>
         </div>
 
         {/* Center: Actions */}
-        <div className="flex items-center gap-3 w-[60%] sm:w-[40%] md:w-[25%] justify-center">
+        <div className="flex items-center gap-3 justify-center shrink-0">
           {/* Previous Button */}
           <button
             onClick={!isPrevDisabled ? () => goToPreviousStage({ subject, lessonId, levelId, stageId, navigate }) : undefined}
             disabled={isPrevDisabled || isLoading}
-            className={`w-[45%] py-1.5 rounded-md text-xs md:text-sm font-bold transition-all duration-300 ${
+            className={`px-5 md:px-6 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-300 ${
               isPrevDisabled || isLoading
                 ? "bg-[#0d0d12] border border-[#1e1e2e] text-slate-600 cursor-not-allowed"
-                : "bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:text-white hover:bg-purple-500/30 cursor-pointer"
+                : "bg-purple-500/10 border border-purple-500/30 text-purple-400 hover:text-white hover:bg-purple-500/40 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] cursor-pointer"
             }`}
           >
             Previous
@@ -149,10 +148,10 @@ const GameFooter: React.FC<GameFooterProps> = ({
           <button
             onClick={!isDisabled ? handleClick : undefined}
             disabled={isDisabled || isLoading}
-            className={`w-[55%] py-1.5 rounded-md text-xs md:text-sm font-bold transition-all duration-300 ${
+            className={`px-8 md:px-10 py-2 rounded-lg text-xs md:text-sm font-bold tracking-wide transition-all duration-300 ${
               isDisabled || isLoading
                 ? "bg-[#0d0d12] border border-[#1e1e2e] text-slate-600 cursor-not-allowed"
-                : "bg-purple-600 text-white hover:bg-purple-500 cursor-pointer"
+                : "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-[1.02] cursor-pointer border border-purple-500/50"
             }`}
           >
             {buttonText}
@@ -160,11 +159,13 @@ const GameFooter: React.FC<GameFooterProps> = ({
         </div>
 
         {/* Right: Coins */}
-        <div className="flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 px-2 py-1 rounded-md hidden sm:flex">
-          <img src={CoinsIcon} alt="Coins" className="w-4 h-4 object-contain" />
-          <p className="text-sm font-bold text-yellow-400">
-            {userData ? userData.coins : "0"}
-          </p>
+        <div className="flex items-center gap-3 flex-1 justify-end hidden sm:flex">
+          <div className="flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 px-3 py-1.5 rounded-lg shadow-inner">
+            <img src={CoinsIcon} alt="Coins" className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-md" />
+            <p className="text-sm md:text-base font-bold text-yellow-400 drop-shadow-sm">
+              {userData ? userData.coins : "0"}
+            </p>
+          </div>
         </div>
 
       </div>

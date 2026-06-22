@@ -12,7 +12,7 @@ import CodeCrafter from "../CodeCrafter";
 import Gameover_PopUp from "../GameModes_Popups/Gameover_PopUp";
 
 // Hooks & Store
-import { useAttemptStore } from "../GameModes_Utils/useAttemptStore";
+import { useAttemptStore } from "@/store/useAttemptStore";
 import { useStageAccess } from "./useStageAccess";
 import GameModeAccessDenied from "./GameModeAccessDenied";
 

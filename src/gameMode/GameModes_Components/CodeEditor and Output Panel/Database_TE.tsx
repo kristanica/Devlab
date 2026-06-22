@@ -20,10 +20,10 @@ import Evaluation_Popup from "../../GameModes_Popups/Evaluation_Popup";
 
 // Utils
 import { extractSqlKeywords } from "../../../components/Achievements Utils/Db_KeyExtract";
-import { unlockAchievement } from "../../../components/Custom Hooks/UnlockAchievement";
+import { unlockAchievement } from "@/services/UnlockAchievement";
 import useFetchUserData from "../../../components/BackEnd_Data/useFetchUserData";
 import useFetchGameModeData from "../../../components/BackEnd_Data/useFetchGameModeData";
-import { useGameStore } from "../../../components/OpenAI Prompts/useBugBustStore";
+import { useGameStore } from "@/store/useGameStore";
 import useFetchUserProgress from "../../../components/BackEnd_Data/useFetchUserProgress";
 import lessonPromptDb from "../../../components/OpenAI Prompts/lessonPromptDb";
 
@@ -358,12 +358,12 @@ const Database_TE: React.FC = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-between items-center gap-2 w-full mt-auto">
+          <div className="flex justify-end items-center gap-3 w-full mt-2 shrink-0">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05 }}
               onClick={runCode}
-              className="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold font-exo tracking-wider rounded-lg py-1.5 shadow-md transition-colors"
+              className="px-6 py-1.5 bg-[#0d0d12] hover:bg-purple-500/10 border border-[#2a2a3c] hover:border-purple-500/50 text-slate-300 hover:text-purple-300 font-exo font-bold text-xs tracking-widest rounded-lg transition-all shadow-sm"
             >
               RUN QUERY
             </motion.button>
@@ -371,13 +371,13 @@ const Database_TE: React.FC = () => {
             {(gamemodeId === "Lesson" || isStageCompleted) && (
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                whileHover={!isEvaluating ? { scale: 1.02 } : {}}
+                whileHover={!isEvaluating ? { scale: 1.05 } : {}}
                 onClick={handleEvaluate}
                 disabled={isEvaluating}
-                className={`flex-1 font-bold font-exo tracking-wider rounded-lg py-1.5 shadow-md transition-colors ${
+                className={`px-6 py-1.5 font-exo font-bold text-xs tracking-widest rounded-lg transition-all shadow-sm ${
                   isEvaluating 
-                    ? "bg-[#2a2a3c] text-slate-500 cursor-not-allowed" 
-                    : "bg-green-600 hover:bg-green-500 text-white"
+                    ? "bg-[#161622] border border-[#2a2a3c] text-slate-500 cursor-not-allowed" 
+                    : "bg-purple-600 hover:bg-purple-500 text-white border border-purple-500/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
                 }`}
               >
                 {isEvaluating ? "EVALUATING..." : "EVALUATE"}

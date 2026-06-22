@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useEditStage from "../Edit_Forms/useEditStage";
 // GameMode Forms

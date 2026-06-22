@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../Firebase/Firebase";
+import { auth, db } from "@/services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Image from "../assets/Images/Login-Image.jpg";
 import logIcon from "../assets/Images/LoginIcon.png";

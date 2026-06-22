@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { auth } from "../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import {
   EmailAuthProvider,
   reauthenticateWithCredential,
@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { validatePassword } from "./Custom Hooks/validations";
+import { validatePassword } from "@/utils/validations";
 
 export default function ResetPassword({ onClose }) {
   const [currentPassword, setCurrentPassword] = useState("");

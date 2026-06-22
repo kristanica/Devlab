@@ -1,6 +1,6 @@
 // src/AdminComponents/contentManagementComponents/BackEndFunctions/deleteStage.jsx
 import axios from "axios";
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 
 const deleteStage = async ({ category, lessonId, levelId, stageId }) => {
   const token = await auth.currentUser?.getIdToken(true);

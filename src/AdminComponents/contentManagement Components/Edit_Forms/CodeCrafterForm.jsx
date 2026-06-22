@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-  import { auth } from "../../../Firebase/Firebase";
+  import { auth } from "@/services/firebase";
   function CodeCrafterForm({stageData, state, dispatch, subject, lessonId, levelId, stageId,  file,setFile,replicateFile,setReplicateFile,}) {
 
   const [uploading, setUploading] = useState(false);

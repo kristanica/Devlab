@@ -1,6 +1,6 @@
 // Firestore
 import { getDoc, doc } from "firebase/firestore";
-import { auth, db } from "../../Firebase/Firebase";
+import { auth, db } from "@/services/firebase";
 // Utils
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";

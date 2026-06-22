@@ -1,6 +1,6 @@
-import { auth } from "../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import { useQuery } from "@tanstack/react-query";
-import { useUserProgressStore } from "../../gameMode/GameModes_Utils/CompletedLevelStore";
+import { useUserProgressStore } from "@/store/useUserProgressStore";
 
 export default function useFetchUserProgress(subject) {
   const setUserProgress = useUserProgressStore((state) => state.setUserProgress);

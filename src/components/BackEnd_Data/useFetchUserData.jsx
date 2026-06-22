@@ -1,4 +1,4 @@
-import { auth } from "../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import { useQuery } from "@tanstack/react-query";
 
 const useFetchUserData = () => {

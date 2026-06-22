@@ -1,6 +1,6 @@
 import axios from "axios";
-import {auth} from "../../Firebase/Firebase"
-import { useGameStore } from "./useBugBustStore";
+import {auth} from "@/services/firebase"
+import { useGameStore } from "@/store/useGameStore";
 
 const lessonPrompt = async ({ receivedCode, instruction, description,subject }) => {
   if (!receivedCode) return null;

@@ -1,5 +1,5 @@
 // BackEnd_Data/useFetchShopItems.jsx
-import { auth } from "../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import { useQuery } from "@tanstack/react-query";
 
 // Query function

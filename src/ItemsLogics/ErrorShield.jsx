@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useInventoryStore } from "./Items-Store/useInventoryStore";
+import { useInventoryStore } from "@/store/useInventoryStore";
 import { toast } from "react-hot-toast";
 
 export const useErrorShield = () => {

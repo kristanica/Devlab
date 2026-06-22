@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 // Firebase
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 // Ui
 import { toast } from "react-toastify";
 

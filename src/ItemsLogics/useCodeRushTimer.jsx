@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useInventoryStore } from "./Items-Store/useInventoryStore";
+import { useInventoryStore } from "@/store/useInventoryStore";
 
 export default function useCodeRushTimer(
   initialTime,

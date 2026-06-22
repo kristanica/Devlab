@@ -7,7 +7,6 @@ import LandingInteractiveUI from "../components/LandingPage/LandingInteractiveUI
 const LandingPage: React.FC = () => {
   return (
     <div className="relative w-full min-h-screen bg-[#06060a] overflow-hidden flex flex-col font-inter selection:bg-purple-500/30">
-      
       <LandingAmbientLights />
       <LandingHeader />
 
@@ -15,7 +14,6 @@ const LandingPage: React.FC = () => {
         <LandingHeroCopy />
         <LandingInteractiveUI />
       </main>
-
     </div>
   );
 };

@@ -2,7 +2,8 @@ import bugBustPrompt from "../../components/OpenAI Prompts/bugBustPrompt";
 import codeCrafterPrompt from "../../components/OpenAI Prompts/codeCrafterPrompt";
 import codeRushPrompt from "../../components/OpenAI Prompts/codeRushPrompt";
 
-import { useGameStore } from "../../components/OpenAI Prompts/useBugBustStore";
+import { useGameStore } from "@/store/useGameStore";
+import { goToNextStage } from "./Util_Navigation";
 
 
 export const gameModeSubmitHandlers = {

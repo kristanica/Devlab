@@ -1,7 +1,6 @@
 import axios from "axios";
-import { auth } from "../../Firebase/Firebase";
-
-import { useGameStore } from "./useBugBustStore";
+import { auth } from "@/services/firebase";
+import { useGameStore } from "@/store/useGameStore";
 
 const bugBustPrompt = async ({submittedCode,instruction,providedCode,description,subject}) => {
   if (!submittedCode) return null;

@@ -4,7 +4,7 @@ import TestDropDownMenu from "./TestDropDownMenu";
 
 import { toast } from "react-toastify";
 
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import axios from "axios";
 
 

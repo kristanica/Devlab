@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-hot-toast";
 
 import { useState } from "react";
-import useUserInventory from "../components/Custom Hooks/useUserInventory";
-import { useInventoryStore } from "./Items-Store/useInventoryStore";
-import { unlockAchievement } from "../components/Custom Hooks/UnlockAchievement";
+import useUserInventory from "@/hooks/useUserInventory";
+import { useInventoryStore } from "@/store/useInventoryStore";
+import { unlockAchievement } from "@/services/UnlockAchievement";
 import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
 import { useParams } from "react-router-dom";
-import { useAttemptStore } from "../gameMode/GameModes_Utils/useAttemptStore";
+import { useAttemptStore } from "@/store/useAttemptStore";
 
 function ItemsUse({ setShowCodeWhisper, gamemodeId }) {
   const { subject } = useParams();
@@ -156,34 +156,37 @@ CodePatch: (item) => {
         className="text-4xl cursor-pointer text-gray-300 hover:text-white transition-all duration-200"
       />
 
-      {/* Inventory Popup */}
       <AnimatePresence>
         {showInventory && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.2 }}
-            className="
-            fixed z-50
-            bottom-24 
-            w-[90%] sm:w-[70%] md:w-[40%] lg:w-[35%] xl:w-[30%]
-            h-[65%] sm:h-[60%] md:h-[55%]">
-            <div className="h-full w-full border border-gray-700/60 rounded-3xl bg-[#0B0F16] p-4 sm:p-5 flex flex-col shadow-xl shadow-black/30">
-              <h1 className="text-white font-exo text-[1.5em] sm:text-[1.8em] font-bold mb-4 text-center tracking-wide">
-                Inventory
-              </h1>
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2, type: "spring", stiffness: 200, damping: 20 }}
+            className="fixed z-50 bottom-16 left-4 md:left-6 w-[90%] sm:w-[320px] md:w-[360px] h-auto max-h-[60vh] flex flex-col"
+          >
+            <div className="h-full w-full border border-white/10 rounded-2xl bg-[#0a0a0f]/95 backdrop-blur-xl p-4 flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/5 shrink-0">
+                <div className="flex items-center gap-2">
+                  <PiTreasureChest className="text-purple-400 text-xl" />
+                  <h1 className="text-white font-exo text-lg font-bold tracking-widest uppercase">
+                    Inventory
+                  </h1>
+                </div>
+                <div className="bg-purple-500/10 text-purple-400 text-[10px] font-bold px-2 py-1 rounded-md border border-purple-500/20 uppercase tracking-wider">
+                  {userInventory ? userInventory.length : 0} Unique
+                </div>
+              </div>
 
-              <div className="overflow-y-auto overflow-x-hidden flex flex-col gap-4 scrollbar-custom pr-1">
+              {/* Items List */}
+              <div className="overflow-y-auto overflow-x-hidden flex flex-col gap-3 scrollbar-custom pr-2">
                 {userInventory && userInventory.length > 0 ? (
                   userInventory.map((item) => (
                     <button
                       key={item.id}
                       onClick={() => {
-                        if (
-                          gamemodeId === "Lesson" &&
-                          item.title !== "CoinSurge"
-                        ) {
+                        if (gamemodeId === "Lesson" && item.title !== "CoinSurge") {
                           toast.error("Items cannot be used in Lesson mode", {
                             position: "top-right",
                             theme: "colored",
@@ -195,33 +198,45 @@ CodePatch: (item) => {
                           itemName: item.title,
                         });
                       }}
-                      className="group cursor-pointer border border-gray-700/50 rounded-2xlbg-gradient-to-br from-[#111827] to-[#0D1117]hover:from-[#1A2333] hover:to-[#121826]transition-all duration-300 flex items-center justify-betweenp-3 shadow-md hover:shadow-lgh-[90px] min-h-[90px] max-h-[90px]">
+                      className="group relative cursor-pointer border border-white/5 rounded-xl bg-gradient-to-br from-white/[0.03] to-transparent hover:border-purple-500/30 hover:bg-purple-500/10 transition-all duration-300 flex items-center gap-3 p-3 shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.15)] overflow-hidden"
+                    >
+                      {/* Animated Hover Background */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out pointer-events-none" />
+
                       {/* Item Icon */}
-                      <div className="rounded-2xl bg-gray-800/70 p-2 flex justify-center items-center w-[70px] h-[70px] overflow-hidden shadow-inner">
+                      <div className="rounded-xl bg-black/40 flex justify-center items-center w-12 h-12 overflow-hidden border border-white/5 shrink-0 shadow-inner group-hover:border-purple-500/30 transition-colors p-2">
                         <img
-                          src={
-                            icons[`../assets/ItemsIcon/${item.Icon}`]?.default
-                          }
+                          src={icons[`../assets/ItemsIcon/${item.Icon}`]?.default}
                           alt={item.title}
-                          className="w-full h-full object-contain scale-90 group-hover:scale-100 transition-transform duration-300"
+                          className="w-full h-full object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.4)] group-hover:scale-110 transition-all duration-300"
                         />
                       </div>
 
-                      {/* Item Title */}
-                      <h2 className="text-base font-exo text-gray-200 flex-1 text-center px-3 leading-tight truncate">
-                        {item.title}
-                      </h2>
+                      {/* Item Details */}
+                      <div className="flex flex-col items-start flex-1 min-w-0">
+                        <h2 className="text-sm font-exo font-bold text-gray-200 group-hover:text-purple-300 transition-colors truncate w-full text-left">
+                          {item.title.replace(/([A-Z])/g, ' $1').trim()}
+                        </h2>
+                        <p className="text-[10px] text-gray-500 font-medium tracking-wide">
+                          Click to activate
+                        </p>
+                      </div>
 
-                      {/* Item Quantity */}
-                      <p className="rounded-xl bg-gray-800/60 px-3 py-2 text-sm font-exo text-white shadow-inner border border-gray-700/40 whitespace-nowrap">
-                        x{item.quantity}
-                      </p>
+                      {/* Quantity Badge */}
+                      <div className="flex items-center justify-center min-w-[32px] h-[32px] rounded-lg bg-[#13131f] border border-[#2a2a3c] group-hover:border-purple-500/40 group-hover:bg-purple-500/20 shrink-0 transition-colors duration-300 shadow-inner">
+                        <span className="text-xs font-bold text-gray-300 group-hover:text-purple-300 transition-colors">
+                          {item.quantity}
+                        </span>
+                      </div>
                     </button>
                   ))
                 ) : (
-                  <p className="text-gray-400 text-center text-lg font-exo mt-8">
-                    No items in inventory
-                  </p>
+                  <div className="flex flex-col items-center justify-center py-8 opacity-60">
+                    <PiTreasureChest className="text-4xl text-gray-500 mb-2" />
+                    <p className="text-gray-400 text-sm font-exo font-medium text-center">
+                      Your inventory is empty.
+                    </p>
+                  </div>
                 )}
               </div>
             </div>

@@ -4,8 +4,8 @@ import Gameover from "../../assets/Lottie/SadSignout.json";
 import Lottie from "lottie-react";
 import { callGameOver } from "../../components/BackEnd_Functions/callGameOver";
 import { useState, useEffect } from "react";
-import { useAttemptStore } from "../GameModes_Utils/useAttemptStore";
-import { useInventoryStore } from "../../ItemsLogics/Items-Store/useInventoryStore";
+import { useAttemptStore } from "@/store/useAttemptStore";
+import { useInventoryStore } from "@/store/useInventoryStore";
 
 function Gameover_PopUp({ gameOver, resetHearts, Back, subject, lessonId, levelId, stageId }) {
   const navigate = useNavigate();

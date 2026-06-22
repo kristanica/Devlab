@@ -5,7 +5,8 @@ import {
   HiOutlineArrowLeftOnRectangle,
   HiBars3,
 } from "react-icons/hi2";
-import { auth } from "../Firebase/Firebase";
+import { auth } from "@/services/firebase";
+import { signOut } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function AdminNavbar() {
@@ -14,7 +15,7 @@ function AdminNavbar() {
 
   const Logout = async () => {
     try {
-      await auth.signOut();
+      await signOut(auth);
       navigate("/Login");
     } catch (error) {
       console.error(error);

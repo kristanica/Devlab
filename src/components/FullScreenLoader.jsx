@@ -1,7 +1,7 @@
 
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/Lottie/loadingSmall.json"
-import { useGameStore } from "./OpenAI Prompts/useBugBustStore";
+import { useGameStore } from "@/store/useGameStore";
 
 export default function FullscreenLoader() {
   const { loading } = useGameStore();

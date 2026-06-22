@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Lottie from "lottie-react";
 import SplitPane from "react-split-pane";
 
-import { useGameStore } from "../components/OpenAI Prompts/useBugBustStore";
-import { playSound } from "../components/Custom Hooks/DevlabSoundHandler";
+import { useGameStore } from "@/store/useGameStore";
+import { playSound } from "@/utils/DevlabSoundHandler";
 import { goToNextStage } from "./GameModes_Utils/Util_Navigation";
 import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
 import { useErrorShield } from "../ItemsLogics/ErrorShield";
@@ -46,7 +46,10 @@ const BugBust: React.FC<GameModeProps> = ({ heart, roundKey, gameOver, submitAtt
 
   const [levelComplete, setLevelComplete] = useState(false);
   const [alreadyComplete, setAlreadyComplete] = useState(false);
-  const [showPopup, setShowPopup] = useState(true);
+  const popupKey = "hasSeenPopup_BugBust";
+  const [showPopup, setShowPopup] = useState(() => {
+    return localStorage.getItem(popupKey) ? false : true;
+  });
   const [showCodeWhisper, setShowCodeWhisper] = useState(false);
 
   // OpenAI State
@@ -65,7 +68,10 @@ const BugBust: React.FC<GameModeProps> = ({ heart, roundKey, gameOver, submitAtt
     }
   }, [showIsCorrect, isCorrect]);
 
-  const closePopup = useCallback(() => setShowPopup(false), []);
+  const closePopup = useCallback(() => {
+    localStorage.setItem(popupKey, "true");
+    setShowPopup(false);
+  }, []);
 
   const nextStageMutation = useMutation({
     mutationFn: async () => {
@@ -101,7 +107,7 @@ const BugBust: React.FC<GameModeProps> = ({ heart, roundKey, gameOver, submitAtt
   return (
     <>
       <div className="h-screen bg-[#06060a] flex flex-col overflow-hidden">
-        <GameHeader heart={heart} />
+        <GameHeader heart={heart} setShowPopup={setShowPopup} />
 
         
         <div className="relative h-[100%] w-full overflow-hidden flex">

@@ -15,10 +15,10 @@ import { FiCheckSquare } from "react-icons/fi";
 
 // Hooks
 import useFetchGameModeData from "../../components/BackEnd_Data/useFetchGameModeData";
-import useAnimatedNumber from "../../components/Custom Hooks/useAnimatedNumber";
-import { useInventoryStore } from "../../ItemsLogics/Items-Store/useInventoryStore";
-import useStoreLastOpenedLevel from "../../components/Custom Hooks/useStoreLastOpenedLevel";
-import { useGameStore } from "../../components/OpenAI Prompts/useBugBustStore";
+import useAnimatedNumber from "../../hooks/useAnimatedNumber";
+import { useInventoryStore } from "../../store/useInventoryStore";
+import useStoreLastOpenedLevel from "@/hooks/useStoreLastOpenedLevel";
+import { useGameStore } from "@/store/useGameStore";
 import useFetchUserProgress from "../../components/BackEnd_Data/useFetchUserProgress";
 import useCodeRushTimer from "../../ItemsLogics/useCodeRushTimer";
 import { BrainFilter } from "../../ItemsLogics/BrainFilter";
@@ -99,6 +99,7 @@ interface InstructionPanelProps {
   setTimesUp?: (val: boolean) => void;
   pauseTimer?: boolean;
   resetTimerSignal?: boolean;
+  className?: string;
 }
 
 const InstructionPanel: React.FC<InstructionPanelProps> = ({
@@ -111,6 +112,7 @@ const InstructionPanel: React.FC<InstructionPanelProps> = ({
   setTimesUp,
   pauseTimer,
   resetTimerSignal,
+  className,
 }) => {
   const [aiHint, setAiHint] = useState("");
   const activeBuffs = useInventoryStore((state) => state.activeBuffs);
@@ -301,7 +303,7 @@ const InstructionPanel: React.FC<InstructionPanelProps> = ({
 
   return (
     <>
-      <div className="h-full w-full border border-[#2a2a3c] bg-[#0d0d12] rounded-xl text-slate-200 overflow-y-auto p-4 sm:p-5 flex flex-col gap-5 shadow-xl scrollbar-custom">
+      <div className={`w-full border border-[#2a2a3c] bg-[#0d0d12] rounded-xl text-slate-200 overflow-y-auto p-4 sm:p-5 flex flex-col gap-5 shadow-xl scrollbar-custom ${className || 'h-full'}`}>
         
         {/* Dynamic Title Card */}
         <div className={`flex flex-col gap-2 border border-[#2a2a3c] bg-gradient-to-br from-[#161622] to-[#0d0d12] p-4 rounded-xl shadow-md border-t-2 ${subjectBorder}`}>

@@ -1,6 +1,6 @@
 // ../GameModes_Utils/Util_Navigation.js
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../Firebase/Firebase";
+import { db } from "@/services/firebase";
 
 export async function goToPreviousStage({ subject, lessonId, levelId, stageId, navigate }) {
   // Convert StageX to number

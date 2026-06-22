@@ -1,5 +1,5 @@
 import axios from "axios";
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 
 const fetchUsers = async () => {
   // Ensure user is logged in

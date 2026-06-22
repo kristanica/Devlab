@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useFetchShopItems from "../components/BackEnd_Data/useFethShopItems";
 import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
-import useAnimatedNumber from "../components/Custom Hooks/useAnimatedNumber";
+import useAnimatedNumber from "../hooks/useAnimatedNumber";
 
 import ShopHeader from "../components/Shop/ShopHeader";
 import ShopItemGrid from "../components/Shop/ShopItemGrid";

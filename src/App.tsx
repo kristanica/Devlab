@@ -1,10 +1,10 @@
-// REACT
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 // FIREBASE
-import { auth } from "./Firebase/Firebase";
+import { auth } from "./services/firebase";
+import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 // COMPONENTS
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -31,25 +31,25 @@ import GameModeRouter from "./gameMode/GameModes_Utils/GameModeRouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FullscreenLoader from "./components/FullScreenLoader";
 // @ts-ignore
-import { loadSounds } from "./components/Custom Hooks/DevlabSoundHandler";
+import { loadSounds } from "./utils/DevlabSoundHandler";
 // @ts-ignore
 import AuthActionHandler from "./components/AuthActionHandler";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App: React.FC = () => {
-  const [user, setUser] = useState<any>(null);
+const App = () => {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isAdmin, setAdmin] = useState<boolean | null>(null);
+  const [isAdmin, setAdmin] = useState<boolean>(false);
 
   useEffect(() => {
     loadSounds();
   }, []);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (!user) {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (!currentUser) {
         setUser(null);
         setAdmin(false);
         setLoading(false);
@@ -58,18 +58,18 @@ const App: React.FC = () => {
 
       try {
         // Block unverified
-        if (!user.emailVerified) {
-          await auth.signOut();
+        if (!currentUser.emailVerified) {
+          await signOut(auth);
           setUser(null);
           setAdmin(false);
           setLoading(false);
           return;
         }
 
-        const token = await user.getIdTokenResult(true);
+        const token = await currentUser.getIdTokenResult(true);
         const role = token.claims.role;
 
-        setUser(user);
+        setUser(currentUser);
         setAdmin(role === "admin");
       } catch (error) {
         console.log("Error fetching user data:", error);
@@ -81,7 +81,7 @@ const App: React.FC = () => {
     return unsubscribe;
   }, []);
 
-  const isLoggedIn = !!user;
+  const isLoggedIn = Boolean(user);
 
   if (loading) return null;
 

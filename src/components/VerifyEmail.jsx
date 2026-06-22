@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { applyActionCode, checkActionCode } from "firebase/auth";
-import { auth } from "../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import { toast } from "react-toastify";
 
 export default function VerifyEmail({ oobCode }) {

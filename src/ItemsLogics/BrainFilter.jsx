@@ -1,5 +1,5 @@
 // src/ItemsLogics/PerfectPrecision.js
-import { useInventoryStore } from "./Items-Store/useInventoryStore";
+import { useInventoryStore } from "@/store/useInventoryStore";
 
 export async function BrainFilter(optionsArray, correctAnswer) {
 

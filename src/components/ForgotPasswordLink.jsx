@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 // Firebase
 import { verifyPasswordResetCode, confirmPasswordReset } from "firebase/auth";
-import { auth } from "../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 // Utils
-import { validatePassword } from "./Custom Hooks/validations";
+import { validatePassword } from "@/utils/validations";
 // UI
 import { toast } from "react-toastify";
 import { IoEye, IoEyeOff } from "react-icons/io5";

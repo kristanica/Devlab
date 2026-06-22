@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 import confetti from "../../assets/Lottie/Confetti.json";
 import loadingDots from "../../assets/Lottie/LoadingDots.json";
 import { useState, useCallback, useEffect } from "react";
-import { playSound } from "../../components/Custom Hooks/DevlabSoundHandler";
+import { playSound } from "@/utils/DevlabSoundHandler";
 
 import { unlockStage } from "../../components/BackEnd_Functions/unlockStage";
 

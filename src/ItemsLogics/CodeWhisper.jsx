@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useInventoryStore } from "./Items-Store/useInventoryStore";
-import { useGameStore } from "../components/OpenAI Prompts/useBugBustStore";
+import { useInventoryStore } from "@/store/useInventoryStore";
+import { useGameStore } from "@/store/useGameStore";
 import Lottie from "lottie-react";
 import smallLoading from "../assets/Lottie/loadingSmall.json";
 

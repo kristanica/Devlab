@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import Lottie from "lottie-react";
 import SplitPane from "react-split-pane";
 
-import { playSound } from "../components/Custom Hooks/DevlabSoundHandler";
+import { playSound } from "@/utils/DevlabSoundHandler";
 import { goToNextStage } from "./GameModes_Utils/Util_Navigation";
 import { useErrorShield } from "../ItemsLogics/ErrorShield";
 import useFetchUserData from "../components/BackEnd_Data/useFetchUserData";
@@ -44,7 +44,10 @@ const BrainBytes: React.FC<GameModeProps> = ({
 
   const [levelComplete, setLevelComplete] = useState(false);
   const [alreadyComplete, setAlreadyComplete] = useState(false);
-  const [showPopup, setShowPopup] = useState(true);
+  const popupKey = "hasSeenPopup_BrainBytes";
+  const [showPopup, setShowPopup] = useState(() => {
+    return localStorage.getItem(popupKey) ? false : true;
+  });
   const [showCodeWhisper, setShowCodeWhisper] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showisCorrect, setShowisCorrect] = useState(false);
@@ -58,7 +61,10 @@ const BrainBytes: React.FC<GameModeProps> = ({
     }
   }, [showisCorrect, isCorrect]);
 
-  const closePopup = useCallback(() => setShowPopup(false), []);
+  const closePopup = useCallback(() => {
+    localStorage.setItem(popupKey, "true");
+    setShowPopup(false);
+  }, []);
 
   const nextStageMutation = useMutation({
     mutationFn: async () => {
@@ -94,11 +100,13 @@ const BrainBytes: React.FC<GameModeProps> = ({
         key={roundKey}
         className="h-screen bg-[#06060a] flex flex-col overflow-hidden"
       >
-        <GameHeader heart={heart} />
+        <GameHeader heart={heart} setShowPopup={setShowPopup} />
 
-        <div className="relative h-[100%] flex flex-col md:flex-row p-2 md:p-3 gap-2 justify-center overflow-x-hidden">
-          <div className="h-[90%] md:w-[60%] lg:w-[50%] xl:w-[40%] md:h-full w-full mx-auto">
+        <div className="relative h-full flex flex-col p-4 md:p-6 justify-center items-center overflow-x-hidden w-full mx-auto">
+          {/* Centered wide instruction box to reduce dead space */}
+          <div className="w-full md:w-[80%] lg:w-[70%] xl:w-[60%] max-w-5xl flex flex-col shrink-0 relative z-10 my-auto">
             <InstructionPanel
+              className="h-auto max-h-[80vh] md:max-h-[85vh]"
               setIsCorrect={setIsCorrect}
               setShowisCorrect={setShowisCorrect}
               showCodeWhisper={showCodeWhisper}

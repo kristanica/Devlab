@@ -10,10 +10,25 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "../../Firebase/Firebase";
+import { auth, db } from "@/services/firebase";
 import { toast } from "react-toastify";
-// @ts-ignore
-import { validateEmail, validatePassword } from "../Custom Hooks/validations";
+import { validateEmail, validatePassword } from "@/utils/validations";
+
+const getAuthErrorMessage = (error: unknown) => {
+  if (typeof error === "object" && error && "code" in error) {
+    const code = String((error as { code?: unknown }).code);
+    const errorMap: Record<string, string> = {
+      "auth/invalid-credential": "Invalid User Credentials",
+      "auth/user-not-found": "No account found with this email.",
+      "auth/too-many-requests": "Too many attempts. Please try again later.",
+      "auth/user-disabled": "Your account has been suspended.",
+    };
+
+    return errorMap[code] || "Login failed. Please try again.";
+  }
+
+  return "Login failed. Please try again.";
+};
 
 export const useAuthLogic = () => {
   const navigate = useNavigate();
@@ -79,15 +94,8 @@ export const useAuthLogic = () => {
       } else {
         navigate("/Main", { replace: true });
       }
-    } catch (error: any) {
-      const errorMap: Record<string, string> = {
-        "auth/invalid-credential": "Invalid User Credentials",
-        "auth/user-not-found": "No account found with this email.",
-        "auth/too-many-requests": "Too many attempts. Please try again later.",
-        "auth/user-disabled": "Your account has been suspended.",
-      };
-      const message = errorMap[error.code] || "Login failed. Please try again.";
-      toast.error(message, { position: "top-center", theme: "colored" });
+    } catch (error: unknown) {
+      toast.error(getAuthErrorMessage(error), { position: "top-center", theme: "colored" });
     } finally {
       setLoading(false);
     }
@@ -152,8 +160,11 @@ export const useAuthLogic = () => {
         toast.success("Registered successfully! Please verify your email before logging in.", { position: "top-center", theme: "colored" });
         setIsLoginMode(true);
       }
-    } catch (error: any) {
-      toast.error(error.message, { position: "bottom-center", theme: "colored" });
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Registration failed.", {
+        position: "bottom-center",
+        theme: "colored",
+      });
     } finally {
       setLoading(false);
     }

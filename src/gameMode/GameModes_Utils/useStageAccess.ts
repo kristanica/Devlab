@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { db, auth } from "../../Firebase/Firebase";
+import { db, auth } from "../../services/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 export const useStageAccess = (
@@ -52,7 +52,7 @@ export const useStageAccess = (
           return;
         }
 
-        const data = stageSnap.data();
+        const data = stageSnap.data() as { isActive?: boolean; isCompleted?: boolean };
 
         if (data.isActive === true || data.isCompleted === true) {
           setIsAllowed(true);

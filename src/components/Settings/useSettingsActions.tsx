@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { auth, db, storage } from "../../Firebase/Firebase";
+import { auth, db, storage } from "../../services/firebase";
+import { signOut } from "firebase/auth";
 import { updateDoc, doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
@@ -13,7 +14,7 @@ export const useSettingsActions = (userData: any, refetch: () => void) => {
   const logout = async () => {
     try {
       sessionStorage.removeItem('dashboardLoaded');
-      await auth.signOut();
+      await signOut(auth);
       navigate("/Login");
     } catch (error) {
       console.error(error);

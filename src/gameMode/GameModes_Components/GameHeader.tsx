@@ -1,22 +1,23 @@
-// Utils / Custom Hooks
-import useLevelBar from "../../components/Custom Hooks/useLevelBar";
+// Utils / Hooks
+import useLevelBar from "@/hooks/useLevelBar";
 import useFetchUserData from "../../components/BackEnd_Data/useFetchUserData";
 // Navigation
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 // Icons
-import { MdArrowBackIosNew } from "react-icons/md";
+import { MdArrowBackIosNew, MdInfoOutline } from "react-icons/md";
 import { LuHeart } from "react-icons/lu";
 import defaultAvatar from "../../assets/Images/profile_handler.png";
 import React from "react";
 import { motion } from "framer-motion";
-import { useAttemptStore } from "../GameModes_Utils/useAttemptStore";
+import { useAttemptStore } from "@/store/useAttemptStore";
 
 interface GameHeaderProps {
-  heart: number;
+  heart?: number;
+  setShowPopup?: (val: boolean) => void;
 }
 
-const GameHeader: React.FC<GameHeaderProps> = ({ heart }) => {
+const GameHeader: React.FC<GameHeaderProps> = ({ heart, setShowPopup }) => {
   const { animatedExp } = useLevelBar();
   const { gamemodeId } = useParams();
   const { userData } = useFetchUserData();
@@ -36,6 +37,15 @@ const GameHeader: React.FC<GameHeaderProps> = ({ heart }) => {
         <h1 className="text-lg sm:text-xl font-exo font-bold tracking-tight hidden sm:flex items-center gap-2">
           <span className="text-white">DevLab</span>
         </h1>
+        {setShowPopup && (
+          <button
+            onClick={() => setShowPopup(true)}
+            className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 transition-all duration-300"
+            title="Show Instructions"
+          >
+            <MdInfoOutline className="text-xl" />
+          </button>
+        )}
       </div>
 
       {/* Center: Hearts */}

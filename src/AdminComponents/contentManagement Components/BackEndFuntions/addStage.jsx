@@ -1,5 +1,5 @@
 import axios from "axios";
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 
 const addStage = async ({ category, lessonId, levelId }) => {
     const token = await auth.currentUser?.getIdToken(true);

@@ -22,8 +22,8 @@ import Evaluation_Popup from "../../GameModes_Popups/Evaluation_Popup";
 
 // Utils
 import { checkCssAchievements } from "../../../components/Achievements Utils/Css_KeyExtract";
-import { unlockAchievement } from "../../../components/Custom Hooks/UnlockAchievement";
-import { useGameStore } from "../../../components/OpenAI Prompts/useBugBustStore";
+import { unlockAchievement } from "@/services/UnlockAchievement";
+import { useGameStore } from "@/store/useGameStore";
 import useFetchUserData from "../../../components/BackEnd_Data/useFetchUserData";
 import useFetchGameModeData from "../../../components/BackEnd_Data/useFetchGameModeData";
 import useFetchUserProgress from "../../../components/BackEnd_Data/useFetchUserProgress";
@@ -34,13 +34,28 @@ import lessonPrompt from "../../../components/OpenAI Prompts/lessonPrompt";
 type TabTypes = "HTML" | "CSS";
 
 export const TAB_THEMES = {
-  HTML: { color: "orange", text: "text-orange-500", icon: IoLogoHtml5, label: "index.html" },
-  CSS: { color: "cyan", text: "text-cyan-500", icon: IoLogoCss3, label: "styles.css" },
+  HTML: {
+    color: "orange",
+    text: "text-orange-500",
+    icon: IoLogoHtml5,
+    label: "index.html",
+  },
+  CSS: {
+    color: "cyan",
+    text: "text-cyan-500",
+    icon: IoLogoCss3,
+    label: "styles.css",
+  },
 };
 
 const Css_TE: React.FC = () => {
   const { userData } = useFetchUserData();
-  const { gamemodeId, lessonId, levelId, stageId } = useParams<{ gamemodeId: string; lessonId: string; levelId: string; stageId: string }>();
+  const { gamemodeId, lessonId, levelId, stageId } = useParams<{
+    gamemodeId: string;
+    lessonId: string;
+    levelId: string;
+    stageId: string;
+  }>();
   const { gameModeData, subject } = useFetchGameModeData();
   const [description, setDescription] = useState("");
 
@@ -63,9 +78,12 @@ const Css_TE: React.FC = () => {
 
   const getLanguageExtension = useCallback(() => {
     switch (activeTab) {
-      case "HTML": return html({ autoCloseTags: false });
-      case "CSS": return css();
-      default: return html({ autoCloseTags: false });
+      case "HTML":
+        return html({ autoCloseTags: false });
+      case "CSS":
+        return css();
+      default:
+        return html({ autoCloseTags: false });
     }
   }, [activeTab]);
 
@@ -74,7 +92,7 @@ const Css_TE: React.FC = () => {
       setCode((prev) => ({ ...prev, [activeTab]: val }));
       setSubmittedCode({ [activeTab]: val });
     },
-    [activeTab, setSubmittedCode]
+    [activeTab, setSubmittedCode],
   );
 
   const { userStageCompleted } = useFetchUserProgress(subject);
@@ -84,7 +102,9 @@ const Css_TE: React.FC = () => {
   const runCode = useCallback(() => {
     const allEmpty = !code.HTML.trim() && !code.CSS.trim();
     if (allEmpty) {
-      toast.error("Please enter your code before running.", { position: "top-right" });
+      toast.error("Please enter your code before running.", {
+        position: "top-right",
+      });
       return;
     }
 
@@ -101,7 +121,9 @@ const Css_TE: React.FC = () => {
           ${code.HTML}
         </body>
         </html>`;
-      const doc = iFrame.current.contentDocument || iFrame.current.contentWindow?.document;
+      const doc =
+        iFrame.current.contentDocument ||
+        iFrame.current.contentWindow?.document;
       if (doc) {
         doc.open();
         doc.write(fullCode);
@@ -113,7 +135,10 @@ const Css_TE: React.FC = () => {
       const unlocked = checkCssAchievements(code.CSS);
       if (unlocked.length > 0) {
         unlocked.forEach((title) => {
-          unlockAchievement(userData?.uid, "Css", "cssAction", { achievementTitle: title, isCorrect });
+          unlockAchievement(userData?.uid, "Css", "cssAction", {
+            achievementTitle: title,
+            isCorrect,
+          });
         });
       }
     }
@@ -122,16 +147,19 @@ const Css_TE: React.FC = () => {
   const handleEvaluate = useCallback(async () => {
     const allEmpty = !code.HTML.trim() && !code.CSS.trim();
     if (allEmpty) {
-      toast.error("Please enter your code before evaluating.", { position: "top-right" });
+      toast.error("Please enter your code before evaluating.", {
+        position: "top-right",
+      });
       return;
     }
 
     let currentDesc = description;
     if (gameModeData?.blocks) {
-      const paragraphs = gameModeData.blocks
-        .filter((block: any) => block.type === "Paragraph")
-        .map((block: any) => block.value)
-        .join("\n") || "";
+      const paragraphs =
+        gameModeData.blocks
+          .filter((block: any) => block.type === "Paragraph")
+          .map((block: any) => block.value)
+          .join("\n") || "";
       setDescription(paragraphs);
       currentDesc = paragraphs;
     }
@@ -154,14 +182,46 @@ const Css_TE: React.FC = () => {
     }
   }, [code, description, gameModeData, subject]);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    });
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.offsetWidth);
+    }
+  }, []);
+
+  const minLeft = containerWidth * 0.3;
+  const minRight = containerWidth * 0.3;
+  const defaultLeft = containerWidth * 0.5;
+
   return (
-    <div className="w-full h-full relative overflow-hidden flex">
+    <div
+      ref={containerRef}
+      className="w-full h-full relative overflow-hidden flex"
+    >
       {/* @ts-ignore */}
       <SplitPane
         split="vertical"
-        minSize={250}
-        defaultSize="50%"
-        paneStyle={{ overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}
+        minSize={minLeft}
+        maxSize={containerWidth - minRight}
+        defaultSize={defaultLeft}
+        paneStyle={{
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%"
+        }}
         resizerStyle={{
           cursor: "col-resize",
           width: "6px",
@@ -169,8 +229,8 @@ const Css_TE: React.FC = () => {
           zIndex: 10,
         }}
       >
-        {/* Code Editor Panel — LEFT */}
-        <div className="flex flex-col h-full gap-2 p-0">
+        {/* Code Editor Panel */}
+        <div className="flex flex-col h-full gap-2">
           <div className="flex-1 bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-2xl flex flex-col min-h-0">
             {/* Editor Top Bar (Mac Style) */}
             <div className="bg-[#06060a] flex items-end pt-2 pl-2 pr-4 shrink-0 relative">
@@ -190,7 +250,10 @@ const Css_TE: React.FC = () => {
                     }`}
                     style={{ marginBottom: isActive ? "-1px" : "0" }}
                   >
-                    <Icon size={16} className={isActive ? theme.text : "text-slate-500"} />
+                    <Icon
+                      size={16}
+                      className={isActive ? theme.text : "text-slate-500"}
+                    />
                     {theme.label}
                   </button>
                 );
@@ -212,7 +275,11 @@ const Css_TE: React.FC = () => {
                 onChange={onChange}
                 height="100%"
                 width="100%"
-                extensions={[getLanguageExtension(), autocompletion({ override: [] }), EditorView.lineWrapping]}
+                extensions={[
+                  getLanguageExtension(),
+                  autocompletion({ override: [] }),
+                  EditorView.lineWrapping,
+                ]}
                 theme={tokyoNight}
                 basicSetup={{
                   lineNumbers: true,
@@ -227,12 +294,12 @@ const Css_TE: React.FC = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-between items-center gap-2 w-full shrink-0">
+          <div className="flex justify-end items-center gap-3 w-full mt-2 shrink-0">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05 }}
               onClick={runCode}
-              className="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold font-exo tracking-wider rounded-lg py-1.5 shadow-md transition-colors"
+              className="px-6 py-1.5 bg-[#0d0d12] hover:bg-purple-500/10 border border-[#2a2a3c] hover:border-purple-500/50 text-slate-300 hover:text-purple-300 font-exo font-bold text-xs tracking-widest rounded-lg transition-all shadow-sm"
             >
               RUN
             </motion.button>
@@ -240,13 +307,13 @@ const Css_TE: React.FC = () => {
             {(gamemodeId === "Lesson" || isStageCompleted) && (
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                whileHover={!isEvaluating ? { scale: 1.02 } : {}}
+                whileHover={!isEvaluating ? { scale: 1.05 } : {}}
                 onClick={handleEvaluate}
                 disabled={isEvaluating}
-                className={`flex-1 font-bold font-exo tracking-wider rounded-lg py-1.5 shadow-md transition-colors ${
+                className={`px-6 py-1.5 font-exo font-bold text-xs tracking-widest rounded-lg transition-all shadow-sm ${
                   isEvaluating
-                    ? "bg-[#2a2a3c] text-slate-500 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-500 text-white"
+                    ? "bg-[#161622] border border-[#2a2a3c] text-slate-500 cursor-not-allowed"
+                    : "bg-purple-600 hover:bg-purple-500 text-white border border-purple-500/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
                 }`}
               >
                 {isEvaluating ? "EVALUATING..." : "EVALUATE"}
@@ -255,33 +322,37 @@ const Css_TE: React.FC = () => {
           </div>
         </div>
 
-        {/* Live Preview Panel — RIGHT */}
-        <div className="h-full flex flex-col bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-xl min-h-0">
-          <div className="bg-[#161622] border-b border-[#2a2a3c] px-2 py-1 shrink-0 flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-mono uppercase tracking-wider">
-              Live Preview
-            </span>
-          </div>
-          <div className="flex-1 bg-white relative">
-            {hasRunCode ? (
-              <iframe
-                ref={iFrame}
-                title="output"
-                className="w-full h-full absolute inset-0 border-none"
-                sandbox="allow-scripts allow-same-origin allow-modals allow-popups allow-top-navigation-by-user-activation"
-              />
-            ) : (
-              <div className="absolute inset-0 flex flex-col justify-center items-center bg-[#06060a]">
-                <Lottie animationData={Animation} className="w-48 h-48 opacity-50 mb-4" />
-                <p className="text-purple-500/50 font-exo font-bold tracking-widest uppercase text-sm border border-purple-500/20 px-6 py-2 rounded-lg bg-purple-500/5">
-                  Awaiting Execution
-                </p>
-              </div>
-            )}
+        {/* Output Panel */}
+        <div className="h-full w-full flex flex-col gap-2">
+          <div className="flex-1 flex flex-col bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-xl min-h-0">
+            <div className="bg-[#161622] border-b border-[#2a2a3c] px-2 py-1 shrink-0 flex items-center justify-between">
+              <span className="text-xs text-slate-500 font-mono uppercase tracking-wider">
+                Live Preview
+              </span>
+            </div>
+            <div className="flex-1 bg-white relative">
+              {hasRunCode ? (
+                <iframe
+                  ref={iFrame}
+                  title="output"
+                  className="w-full h-full absolute inset-0 border-none"
+                  sandbox="allow-scripts allow-same-origin allow-modals allow-popups allow-top-navigation-by-user-activation"
+                />
+              ) : (
+                <div className="absolute inset-0 flex flex-col justify-center items-center bg-[#06060a]">
+                  <Lottie
+                    animationData={Animation}
+                    className="w-48 h-48 opacity-50 mb-4"
+                  />
+                  <p className="text-purple-500/50 font-exo font-bold tracking-widest uppercase text-sm border border-purple-500/20 px-6 py-2 rounded-lg bg-purple-500/5">
+                    Awaiting Execution
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </SplitPane>
-
 
       <AnimatePresence>
         {showPopup && evaluationResult && (
@@ -291,7 +362,10 @@ const Css_TE: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Evaluation_Popup evaluationResult={evaluationResult} setShowPopup={setShowPopup} />
+            <Evaluation_Popup
+              evaluationResult={evaluationResult}
+              setShowPopup={setShowPopup}
+            />
           </motion.div>
         )}
       </AnimatePresence>

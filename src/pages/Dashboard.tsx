@@ -14,9 +14,9 @@ import RecentMissions from "../components/Dashboard/RecentMissions";
 import InventoryVault from "../components/Dashboard/InventoryVault";
 
 // Hooks
-import useLevelBar from "../components/Custom Hooks/useLevelBar";
-import useSubjProgressBar from "../components/Custom Hooks/useSubjProgressBar";
-import useUserInventory from "../components/Custom Hooks/useUserInventory";
+import useLevelBar from "@/hooks/useLevelBar";
+import useSubjProgressBar from "@/hooks/useSubjProgressBar";
+import useUserInventory from "@/hooks/useUserInventory";
 import useFetchUserData from "../components/BackEnd_Data/useFetchUserData.jsx";
 
 const Dashboard: React.FC = () => {

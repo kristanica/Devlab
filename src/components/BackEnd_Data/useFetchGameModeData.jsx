@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { auth } from "../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 
 export default function useFetchGameModeData() {
   const { subject, lessonId, levelId, stageId, gamemodeId } = useParams();

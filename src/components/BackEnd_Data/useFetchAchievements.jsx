@@ -1,7 +1,7 @@
 // useFetchAchievements.jsx
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { auth } from "../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 
 export default function useFetchAchievements(category) {
   const fetchAchievements = async () => {

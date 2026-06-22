@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import InputSelector from "../Edit_Forms/InputSelector";
 import TestDropDownMenu from "../Edit_Forms/TestDropDownMenu";
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function AddNewLevelForm({ subject, lessonId, levelId, close }) {

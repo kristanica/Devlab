@@ -17,7 +17,7 @@ import { HiOutlineCode, HiOutlineInformationCircle } from "react-icons/hi";
 import { MdOutlinePlayLesson } from "react-icons/md";
 import { FiCheckSquare } from "react-icons/fi";
 
-import useStoreLastOpenedLevel from "../../components/Custom Hooks/useStoreLastOpenedLevel";
+import useStoreLastOpenedLevel from "@/hooks/useStoreLastOpenedLevel";
 
 const LessonInstructionPanel: React.FC = () => {
   const { gameModeData, levelData, subject, lessonId, levelId, stageId } = useFetchGameModeData();

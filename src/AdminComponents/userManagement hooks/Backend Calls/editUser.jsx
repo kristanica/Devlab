@@ -1,4 +1,4 @@
-import { auth } from "../../../Firebase/Firebase";
+import { auth } from "@/services/firebase";
 import axios from "axios";
 
 export const editUser = async ({ uid, state }) => {
