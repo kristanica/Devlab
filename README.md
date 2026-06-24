@@ -1,12 +1,76 @@
-# React + Vite
+# Devlab
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A gamified programming learning platform built with React 19, TypeScript, and Firebase. Users complete coding challenges across HTML, CSS, JavaScript, and Database subjects — earning XP, coins, and achievements as they progress.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: React 19, TypeScript 5.7, Vite 6
+- **Routing**: React Router 7
+- **State**: Zustand 5, TanStack React Query 5
+- **Styling**: Tailwind CSS 4, Framer Motion 12
+- **Backend**: Firebase (Auth + Firestore)
+- **Editor**: CodeMirror 6
+- **Drag & Drop**: dnd-kit
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+pnpm install
+pnpm run dev          # Start dev server (local network accessible)
+pnpm run build        # Production build
+pnpm run preview      # Preview production build
+```
+
+## Project Structure
+
+```
+src/
+├── features/              # Feature-based modules
+│   ├── achievements/      # User achievements, claiming logic
+│   ├── admin/             # Content & user management
+│   ├── auth/              # Login, registration, password resets
+│   ├── dashboard/         # User profile, stats, inventory
+│   ├── gamemodes/         # BrainBytes, BugBust, CodeCrafter, CodeRush
+│   ├── inventory/         # Item use logic and effects
+│   ├── landing/           # Public landing page
+│   ├── lessons/           # Curriculum, lesson components
+│   └── shop/              # Store interface, item purchasing
+├── components/            # Reusable UI primitives (navbar, layout, loaders)
+├── hooks/                 # Global custom hooks
+├── pages/                 # Top-level route pages (Login, Settings, etc.)
+├── services/              # Firebase, OpenAI prompts, API clients
+├── store/                 # Zustand stores (inventory, rewards, game state)
+├── types/                 # Global TypeScript definitions
+└── utils/                 # Utilities (sound handler, validations)
+```
+
+## Testing
+
+E2E tests run with Vitest + JSDOM + React Testing Library, using MSW for complete network isolation (no live API calls).
+
+```bash
+pnpm run test:e2e           # Run full suite (69 tests)
+pnpm run test:e2e:watch     # Interactive watch mode
+pnpm run test:e2e:coverage  # With coverage report
+pnpm run typecheck          # TypeScript type checking
+```
+
+## Key Commands
+
+| Command | Description |
+|---------|-------------|
+| `pnpm run dev` | Start dev server |
+| `pnpm run build` | Production build |
+| `pnpm run lint` | ESLint check |
+| `pnpm run typecheck` | TypeScript check (`tsc --noEmit`) |
+| `pnpm run test:e2e` | Run E2E test suite |
+
+## Environment
+
+Create a `.env` file with:
+
+```
+VITE_BACK_END=<backend-api-url>
+```
+
+The application uses Firebase for authentication and Firestore for data persistence. All OpenAI API endpoints are mocked during tests via MSW.
