@@ -1,5 +1,5 @@
 import React from "react";
-import { lessonConfig } from "./LessonConfig";
+import { lessonConfig } from "./lessonConfig";
 import { IoCheckmarkCircle } from "react-icons/io5";
 
 interface LessonAboutProps {

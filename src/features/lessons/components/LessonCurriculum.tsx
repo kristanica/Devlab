@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLock } from "react-icons/fa";
 import { IoChevronDownOutline, IoPlayOutline } from "react-icons/io5";
-import { lessonConfig } from "./LessonConfig";
+import { lessonConfig } from "./lessonConfig";
 
 interface LessonCurriculumProps {
   subject: string;

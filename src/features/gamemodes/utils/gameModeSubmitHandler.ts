@@ -2,7 +2,7 @@ import bugBustPrompt from '@/services/openai/bugBustPrompt';
 import codeCrafterPrompt from '@/services/openai/codeCrafterPrompt';
 import codeRushPrompt from '@/services/openai/codeRushPrompt';
 import { useGameStore } from "@/store/useGameStore";
-import { goToNextStage } from "./Util_Navigation";
+import { goToNextStage } from "./utilNavigation";
 import type { NavigateFunction } from "react-router-dom";
 
 interface SubmitParams {

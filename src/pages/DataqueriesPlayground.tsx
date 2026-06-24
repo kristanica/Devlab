@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import "../index.css";
 
 // Components
-import DataqueriesHeader from "../components/DataqueriesPlayground/DataqueriesHeader";
-import DataqueriesSchema from "../components/DataqueriesPlayground/DataqueriesSchema";
-import DataqueriesEditor from "../components/DataqueriesPlayground/DataqueriesEditor";
-import DataqueriesOutput from "../components/DataqueriesPlayground/DataqueriesOutput";
-import DBPlaygroundEval_Popup from "../features/gamemodes/popups/DbPlaygroundEval_PopUp";
+import DataqueriesHeader from "../components/dataqueries-playground/DataqueriesHeader";
+import DataqueriesSchema from "../components/dataqueries-playground/DataqueriesSchema";
+import DataqueriesEditor from "../components/dataqueries-playground/DataqueriesEditor";
+import DataqueriesOutput from "../components/dataqueries-playground/DataqueriesOutput";
+import DBPlaygroundEval_Popup from "../features/gamemodes/popups/DbPlaygroundEvalPopUp";
 
 // Hooks
-import { useDataqueriesLogic } from "../components/DataqueriesPlayground/useDataqueriesLogic";
+import { useDataqueriesLogic } from "../components/dataqueries-playground/useDataqueriesLogic";
 
 const DataqueriesPlayground: React.FC = () => {
   const {

@@ -122,4 +122,3 @@ export const goToNextStage = async ({subject,lessonId,levelId,stageId,navigate,s
     console.error("Error in goToNextStage:", error instanceof Error ? error.message : error);
   }
 };
-

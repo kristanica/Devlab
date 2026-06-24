@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
 // Components
-import SettingsHeader from "../components/Settings/SettingsHeader";
-import SettingsProfileImage from "../components/Settings/SettingsProfileImage";
-import SettingsProfileForm from "../components/Settings/SettingsProfileForm";
-import SettingsActions from "../components/Settings/SettingsActions";
-import SettingsModals from "../components/Settings/SettingsModals";
+import SettingsHeader from "../components/settings/SettingsHeader";
+import SettingsProfileImage from "../components/settings/SettingsProfileImage";
+import SettingsProfileForm from "../components/settings/SettingsProfileForm";
+import SettingsActions from "../components/settings/SettingsActions";
+import SettingsModals from "../components/settings/SettingsModals";
 
 // Hooks
 import useFetchUserData from '@/services/api/useFetchUserData';
-import { useSettingsActions } from "../components/Settings/useSettingsActions";
+import { useSettingsActions } from "../components/settings/useSettingsActions";
 
 const Settings: React.FC = () => {
   const { userData, refetch } = useFetchUserData();

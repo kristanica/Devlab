@@ -1,6 +1,6 @@
 import React from "react";
 import { FaTrophy, FaLock } from "react-icons/fa";
-import { ACHIEVEMENTS_THEME } from "./AchievementConfig";
+import { ACHIEVEMENTS_THEME } from "./achievementConfig";
 
 interface AchievementSectionProps {
   subjectKey: string;

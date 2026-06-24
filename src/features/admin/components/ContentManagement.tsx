@@ -8,16 +8,16 @@ import { useIsMutating } from "@tanstack/react-query";
 import Loading from "@/assets/Lottie/LoadingDots.json";
 
 import useFetchLevelsData from '@/services/api/useFetchLevelsData';
-import AddContent from "./contentManagement/AddContent";
-import LessonEdit from "./contentManagement/LessonEdit";
-import LevelEdit from "./contentManagement/LevelEdit";
+import AddContent from "./content-management/AddContent";
+import LessonEdit from "./content-management/LessonEdit";
+import LevelEdit from "./content-management/LevelEdit";
 
 import { useDeleteLevel } from "../hooks/useDeleteLevel";
 import { useAddStage } from "../hooks/useAddStage";
 import { useAddLevel } from "../hooks/useAddLevel";
 
-import NewLevelForm from "./contentManagement/AddNewLevelForm";
-import AddNewStage from "./contentManagement/AddNewStage";
+import NewLevelForm from "./content-management/AddNewLevelForm";
+import AddNewStage from "./content-management/AddNewStage";
 import { SubjectLesson, Level, Stage } from "../types";
 
 function ContentManagement(): React.ReactElement {

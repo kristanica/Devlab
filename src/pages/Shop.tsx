@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import useFetchShopItems from '@/services/api/useFethShopItems';
 import useFetchUserData from '@/services/api/useFetchUserData';
-import useAnimatedNumber from "../../../hooks/useAnimatedNumber";
+import useAnimatedNumber from "../hooks/useAnimatedNumber";
 
-import ShopHeader from "../components/ShopHeader";
-import ShopItemGrid from "../components/ShopItemGrid";
-import { useBuyMutation } from "../components/useBuyMutation";
+import ShopHeader from "../features/shop/components/ShopHeader";
+import ShopItemGrid from "../features/shop/components/ShopItemGrid";
+import { useBuyMutation } from "../features/shop/components/useBuyMutation";
 
-const ShopPage: React.FC = () => {
+const Shop: React.FC = () => {
   const { shopItems, isLoading } = useFetchShopItems();
   const { userData } = useFetchUserData();
   const safeCoins = typeof userData?.coins === 'number' && !isNaN(userData.coins) ? userData.coins : 0;
@@ -43,4 +43,4 @@ const ShopPage: React.FC = () => {
   );
 };
 
-export default ShopPage;
+export default Shop;

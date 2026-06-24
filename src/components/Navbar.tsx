@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar_Data } from "./NavBar_Data";
+import { navBarData } from "./navBarData";
 import { LuCog } from "react-icons/lu";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { IoCodeSlash, IoCode } from "react-icons/io5";
@@ -59,7 +59,7 @@ function Navbar() {
 
         {/* Navigation Items */}
         <div className="flex-1 flex flex-col gap-5 w-full">
-          {Navbar_Data.map((item) => (
+          {navBarData.map((item) => (
             <div key={item.key}>
               {/* Parent Link */}
               <div

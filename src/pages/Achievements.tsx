@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 
-// Components
-import AchievementsHeader from "../components/AchievementsHeader";
-import AchievementsOverview from "../components/AchievementsOverview";
-import AchievementSection from "../components/AchievementSection";
+import AchievementsHeader from "../features/achievements/components/AchievementsHeader";
+import AchievementsOverview from "../features/achievements/components/AchievementsOverview";
+import AchievementSection from "../features/achievements/components/AchievementSection";
 
-// Data
 import useFetchUserData from '@/services/api/useFetchUserData';
 import useUserAchievements from "@/hooks/useUserAchievements";
 import useAchievementsProgressBar from "@/hooks/useAchievementProgressBar";
 import useFetchAchievements from '@/services/api/useFetchAchievements';
-import { useClaimAchievement } from "../components/useClaimAchievement";
+import { useClaimAchievement } from "../features/achievements/components/useClaimAchievement";
 
-const AchievementsPage: React.FC = () => {
+const Achievements: React.FC = () => {
   const { userData } = useFetchUserData();
   const { achievements: HtmlData, isLoading: htmlLoading } =
     useFetchAchievements("Html");
@@ -96,4 +94,4 @@ const AchievementsPage: React.FC = () => {
   );
 };
 
-export default AchievementsPage;
+export default Achievements;

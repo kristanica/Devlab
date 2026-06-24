@@ -4,14 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import "../index.css";
 
 // Components
-import PlaygroundHeader from "../components/CodePlayground/PlaygroundHeader";
-import PlaygroundEditor from "../components/CodePlayground/PlaygroundEditor";
-import PlaygroundPreview from "../components/CodePlayground/PlaygroundPreview";
-import PlaygroundConsole from "../components/CodePlayground/PlaygroundConsole";
-import CodePlaygroundEval_PopUp from "../features/gamemodes/popups/CodePlaygroundEval_PopUp";
+import PlaygroundHeader from "../components/code-playground/PlaygroundHeader";
+import PlaygroundEditor from "../components/code-playground/PlaygroundEditor";
+import PlaygroundPreview from "../components/code-playground/PlaygroundPreview";
+import PlaygroundConsole from "../components/code-playground/PlaygroundConsole";
+import CodePlaygroundEval_PopUp from "../features/gamemodes/popups/CodePlaygroundEvalPopUp";
 
 // Hooks
-import { usePlaygroundLogic } from "../components/CodePlayground/usePlaygroundLogic";
+import { usePlaygroundLogic } from "../components/code-playground/usePlaygroundLogic";
 
 const CodePlayground: React.FC = () => {
   const {

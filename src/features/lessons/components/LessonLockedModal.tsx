@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import LockAnimation from "../../../assets/Lottie/LockItem.json";
-import { lessonConfig } from "./LessonConfig";
+import { lessonConfig } from "./lessonConfig";
 
 interface LessonLockedModalProps {
   subject: string;

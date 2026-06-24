@@ -17,11 +17,11 @@ import { IoLogoHtml5 } from "react-icons/io5";
 
 // Components & UI
 import Animation from "../../../assets/Lottie/OutputLottie.json";
-import Evaluation_Popup from "../popups/Evaluation_Popup";
+import Evaluation_Popup from "../popups/EvaluationPopup";
 
 // Utils
 import { unlockAchievement } from "@/services/UnlockAchievement";
-import { extractTags } from "../../../components/Achievements Utils/Html_KeyExtract";
+import { extractTags } from "../../../components/achievements-utils/Html_KeyExtract";
 import { useGameStore } from "@/store/useGameStore";
 import useFetchUserProgress from '@/services/api/useFetchUserProgress';
 import useFetchUserData from '@/services/api/useFetchUserData';
@@ -30,7 +30,7 @@ import useFetchGameModeData from '@/services/api/useFetchGameModeData';
 // Open AI
 import lessonPrompt from '@/services/openai/lessonPrompt';
 
-const Html_TE: React.FC = () => {
+const HtmlTE: React.FC = () => {
   const { userData } = useFetchUserData();
   const { gamemodeId, lessonId, levelId, stageId } = useParams<{ gamemodeId: string; lessonId: string; levelId: string; stageId: string }>();
   const { gameModeData, subject } = useFetchGameModeData();
@@ -248,4 +248,4 @@ const Html_TE: React.FC = () => {
   );
 };
 
-export default React.memo(Html_TE);
+export default React.memo(HtmlTE);

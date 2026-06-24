@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import fetchUsers from "@/features/admin/services/fetchUsers";
 import { suspendAccount } from "@/features/admin/services/suspendAccount";
-import EditUserModal from "@/features/admin/components/userManagement/EditUserModal";
+import EditUserModal from "@/features/admin/components/user-management/EditUserModal";
 import preProfile from "@/assets/Images/profile_handler.png";
 import Lottie from "lottie-react";
 import loading from "@/assets/Lottie/LoadingDots.json";

@@ -1,8 +1,8 @@
 import React from "react";
-import LandingAmbientLights from "../components/LandingAmbientLights";
-import LandingHeader from "../components/LandingHeader";
-import LandingHeroCopy from "../components/LandingHeroCopy";
-import LandingInteractiveUI from "../components/LandingInteractiveUI";
+import LandingAmbientLights from "../features/landing/components/LandingAmbientLights";
+import LandingHeader from "../features/landing/components/LandingHeader";
+import LandingHeroCopy from "../features/landing/components/LandingHeroCopy";
+import LandingInteractiveUI from "../features/landing/components/LandingInteractiveUI";
 
 const LandingPage: React.FC = () => {
   return (

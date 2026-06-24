@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { goToNextStage } from "../utils/Util_Navigation";
+import { goToNextStage } from "../utils/utilNavigation";
 
 // Hooks
 import useFetchUserData from '@/services/api/useFetchUserData';

@@ -16,10 +16,10 @@ import { PiDatabaseDuotone } from "react-icons/pi";
 
 // Components
 import Animation from "../../../assets/Lottie/OutputLottie.json";
-import Evaluation_Popup from "../popups/Evaluation_Popup";
+import Evaluation_Popup from "../popups/EvaluationPopup";
 
 // Utils
-import { extractSqlKeywords } from "../../../components/Achievements Utils/Db_KeyExtract";
+import { extractSqlKeywords } from "../../../components/achievements-utils/Db_KeyExtract";
 import { unlockAchievement } from "@/services/UnlockAchievement";
 import useFetchUserData from '@/services/api/useFetchUserData';
 import useFetchGameModeData from '@/services/api/useFetchGameModeData';
@@ -61,7 +61,7 @@ INSERT INTO enrollments VALUES
   (9, 5, 'Programming 101', 93);
 `;
 
-const Database_TE: React.FC = () => {
+const DatabaseTE: React.FC = () => {
   const { userData } = useFetchUserData();
   const { gamemodeId, lessonId, levelId, stageId } = useParams<{ gamemodeId: string; lessonId: string; levelId: string; stageId: string }>();
   
@@ -402,4 +402,4 @@ const Database_TE: React.FC = () => {
   );
 };
 
-export default React.memo(Database_TE);
+export default React.memo(DatabaseTE);

@@ -11,7 +11,7 @@ import {
   IoLogoJavascript
 } from 'react-icons/io5';
 
-export const Navbar_Data = [
+export const navBarData = [
     {
         key:'dashboard',
         label:'Dashboard',

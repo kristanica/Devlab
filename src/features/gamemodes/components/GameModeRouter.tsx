@@ -6,10 +6,10 @@ import loadingDots from "../../../assets/Lottie/LoadingDots.json";
 // Game Modes
 import CodeRush from "../modes/CodeRush";
 import BrainBytes from "../modes/BrainBytes";
-import LessonPage from "../../lessons/pages/LessonPage";
+import LessonPage from "../../../pages/Lessons/LessonPage";
 import BugBust from "../modes/BugBust";
 import CodeCrafter from "../modes/CodeCrafter";
-import Gameover_PopUp from "../popups/Gameover_PopUp";
+import Gameover_PopUp from "../popups/GameoverPopUp";
 
 // Hooks & Store
 import { useAttemptStore } from "@/store/useAttemptStore";

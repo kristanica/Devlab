@@ -9,21 +9,20 @@ import SplitPane from "react-split-pane";
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
-import { javascript } from "@codemirror/lang-javascript";
 import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 import { EditorView } from "@codemirror/view";
 import { autocompletion } from "@codemirror/autocomplete";
 
 // Icons
-import { IoLogoHtml5, IoLogoCss3, IoLogoJavascript } from "react-icons/io5";
+import { IoLogoHtml5, IoLogoCss3 } from "react-icons/io5";
 
 // UI Components
 import Animation from "../../../assets/Lottie/OutputLottie.json";
-import Evaluation_Popup from "../popups/Evaluation_Popup";
+import Evaluation_Popup from "../popups/EvaluationPopup";
 
 // Utils
+import { checkCssAchievements } from "../../../components/achievements-utils/Css_KeyExtract";
 import { unlockAchievement } from "@/services/UnlockAchievement";
-import { extractJsKeywords } from "../../../components/Achievements Utils/Js_KeyExtract";
 import { useGameStore } from "@/store/useGameStore";
 import useFetchUserData from '@/services/api/useFetchUserData';
 import useFetchGameModeData from '@/services/api/useFetchGameModeData';
@@ -32,46 +31,59 @@ import useFetchUserProgress from '@/services/api/useFetchUserProgress';
 // Open AI
 import lessonPrompt from '@/services/openai/lessonPrompt';
 
-type TabTypes = "HTML" | "CSS" | "JavaScript";
+type TabTypes = "HTML" | "CSS";
 
 export const TAB_THEMES = {
-  HTML: { color: "orange", text: "text-orange-500", icon: IoLogoHtml5, label: "index.html" },
-  CSS: { color: "cyan", text: "text-cyan-500", icon: IoLogoCss3, label: "styles.css" },
-  JavaScript: { color: "yellow", text: "text-yellow-400", icon: IoLogoJavascript, label: "script.js" },
+  HTML: {
+    color: "orange",
+    text: "text-orange-500",
+    icon: IoLogoHtml5,
+    label: "index.html",
+  },
+  CSS: {
+    color: "cyan",
+    text: "text-cyan-500",
+    icon: IoLogoCss3,
+    label: "styles.css",
+  },
 };
 
-const JavaScript_TE: React.FC = () => {
+const CssTE: React.FC = () => {
   const { userData } = useFetchUserData();
-  const { gamemodeId, lessonId, levelId, stageId } = useParams<{ gamemodeId: string; lessonId: string; levelId: string; stageId: string }>();
+  const { gamemodeId, lessonId, levelId, stageId } = useParams<{
+    gamemodeId: string;
+    lessonId: string;
+    levelId: string;
+    stageId: string;
+  }>();
   const { gameModeData, subject } = useFetchGameModeData();
   const [description, setDescription] = useState("");
 
   const isCorrect = useGameStore((state) => state.isCorrect);
   const setSubmittedCode = useGameStore((state) => state.setSubmittedCode);
 
-  const tabs: TabTypes[] = ["HTML", "CSS", "JavaScript"];
-  const [activeTab, setActiveTab] = useState<TabTypes>("JavaScript");
+  const tabs: TabTypes[] = ["HTML", "CSS"];
+  const [activeTab, setActiveTab] = useState<TabTypes>("CSS");
   const [evaluationResult, setEvaluationResult] = useState<any>(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  const [code, setCode] = useState<{ HTML: string; CSS: string; JavaScript: string }>({
+  const [code, setCode] = useState<{ HTML: string; CSS: string }>({
     HTML: "",
     CSS: "",
-    JavaScript: ""
   });
 
   const iFrame = useRef<HTMLIFrameElement>(null);
   const [hasRunCode, setRunCode] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
-  const consoleRef = useRef<string[]>([]);
 
   const getLanguageExtension = useCallback(() => {
     switch (activeTab) {
-      case "HTML": return html({ autoCloseTags: false });
-      case "CSS": return css();
-      case "JavaScript": return javascript({ jsx: true });
-      default: return html({ autoCloseTags: false });
+      case "HTML":
+        return html({ autoCloseTags: false });
+      case "CSS":
+        return css();
+      default:
+        return html({ autoCloseTags: false });
     }
   }, [activeTab]);
 
@@ -80,7 +92,7 @@ const JavaScript_TE: React.FC = () => {
       setCode((prev) => ({ ...prev, [activeTab]: val }));
       setSubmittedCode({ [activeTab]: val });
     },
-    [activeTab, setSubmittedCode]
+    [activeTab, setSubmittedCode],
   );
 
   const { userStageCompleted } = useFetchUserProgress(subject);
@@ -88,75 +100,66 @@ const JavaScript_TE: React.FC = () => {
   const isStageCompleted = userStageCompleted?.[stageKey] === true;
 
   const runCode = useCallback(() => {
-    const allEmpty = !code.HTML.trim() && !code.CSS.trim() && !code.JavaScript.trim();
+    const allEmpty = !code.HTML.trim() && !code.CSS.trim();
     if (allEmpty) {
-      toast.error("Please enter your code before running.", { position: "top-right" });
+      toast.error("Please enter your code before running.", {
+        position: "top-right",
+      });
       return;
     }
-    
-    consoleRef.current = [];
-    setLogs([]);
+
     setRunCode(true);
-
-    if (gamemodeId !== "Lesson") {
-      const usedTags = extractJsKeywords(code.JavaScript);
-      if (usedTags.length > 0) {
-        unlockAchievement(userData?.uid, "JavaScript", "tagUsed", { usedTags, isCorrect });
-      }
-    }
-
     setTimeout(() => {
       if (!iFrame.current) return;
       const fullCode = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <script>
-          const sendLog = (...args) => {
-            const formatted = args.map((a) => {
-              if (typeof a === "object") {
-                try { return JSON.stringify(a, null, 2); } 
-                catch { return String(a); }
-              }
-              return a;
-            });
-            window.parent.postMessage({ type: "console-log", args: formatted }, "*");
-          };
-          console.log = (...args) => sendLog(...args);
-          console.error = (...args) => sendLog("Error:", ...args);
-          console.warn = (...args) => sendLog("Warning:", ...args);
-        </script>
-        <style>${code.CSS}</style>
-      </head>
-      <body>
-        ${code.HTML}
-        <script>
-          try {
-            ${code.JavaScript}
-          } catch (err) {
-            sendLog("Error:", err.message);
-          }
-        </script>
-      </body>
-      </html>`;
-      
-      iFrame.current.srcdoc = fullCode;
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <style>${code.CSS}</style>
+        </head>
+        <body>
+          ${code.HTML}
+        </body>
+        </html>`;
+      const doc =
+        iFrame.current.contentDocument ||
+        iFrame.current.contentWindow?.document;
+      if (doc) {
+        doc.open();
+        doc.write(fullCode);
+        doc.close();
+      }
     }, 0);
-  }, [code, gamemodeId, userData?.uid, isCorrect]);
+
+    if (gamemodeId !== "Lesson") {
+      const unlocked = checkCssAchievements(code.CSS);
+      if (unlocked.length > 0) {
+        unlocked.forEach((title) => {
+          unlockAchievement(userData?.uid, "Css", "cssAction", {
+            achievementTitle: title,
+            isCorrect,
+          });
+        });
+      }
+    }
+  }, [code, gamemodeId, isCorrect, userData?.uid]);
 
   const handleEvaluate = useCallback(async () => {
-    const allEmpty = !code.HTML.trim() && !code.CSS.trim() && !code.JavaScript.trim();
+    const allEmpty = !code.HTML.trim() && !code.CSS.trim();
     if (allEmpty) {
-      toast.error("Please enter your code before evaluating.", { position: "top-right" });
+      toast.error("Please enter your code before evaluating.", {
+        position: "top-right",
+      });
       return;
     }
 
     let currentDesc = description;
     if (gameModeData?.blocks) {
-      const paragraphs = gameModeData.blocks
-        .filter((block: any) => block.type === "Paragraph")
-        .map((block: any) => block.value)
-        .join("\n") || "";
+      const paragraphs =
+        gameModeData.blocks
+          .filter((block: any) => block.type === "Paragraph")
+          .map((block: any) => block.value)
+          .join("\n") || "";
       setDescription(paragraphs);
       currentDesc = paragraphs;
     }
@@ -164,7 +167,7 @@ const JavaScript_TE: React.FC = () => {
     setIsEvaluating(true);
     try {
       const result = await lessonPrompt({
-        receivedCode: { html: code.HTML, css: code.CSS, js: code.JavaScript },
+        receivedCode: { html: code.HTML, css: code.CSS, js: "" },
         instruction: gameModeData?.instruction,
         description: currentDesc,
         subject,
@@ -179,25 +182,46 @@ const JavaScript_TE: React.FC = () => {
     }
   }, [code, description, gameModeData, subject]);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.data?.type === "console-log") {
-        consoleRef.current.push(event.data.args.join(" "));
-        setLogs([...consoleRef.current]);
+    const observer = new ResizeObserver(() => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
       }
-    };
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+    });
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.offsetWidth);
+    }
+  }, []);
+
+  const minLeft = containerWidth * 0.3;
+  const minRight = containerWidth * 0.3;
+  const defaultLeft = containerWidth * 0.5;
+
   return (
-    <div className="w-full h-full relative overflow-hidden flex">
+    <div
+      ref={containerRef}
+      className="w-full h-full relative overflow-hidden flex"
+    >
       {/* @ts-ignore */}
       <SplitPane
         split="vertical"
-        minSize={250}
-        defaultSize="50%"
-        paneStyle={{ overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}
+        minSize={minLeft}
+        maxSize={containerWidth - minRight}
+        defaultSize={defaultLeft}
+        paneStyle={{
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%"
+        }}
         resizerStyle={{
           cursor: "col-resize",
           width: "6px",
@@ -205,7 +229,7 @@ const JavaScript_TE: React.FC = () => {
           zIndex: 10,
         }}
       >
-        {/* Code Editor Panel — LEFT */}
+        {/* Code Editor Panel */}
         <div className="flex flex-col h-full gap-2">
           <div className="flex-1 bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-2xl flex flex-col min-h-0">
             {/* Editor Top Bar (Mac Style) */}
@@ -226,7 +250,10 @@ const JavaScript_TE: React.FC = () => {
                     }`}
                     style={{ marginBottom: isActive ? "-1px" : "0" }}
                   >
-                    <Icon size={16} className={isActive ? theme.text : "text-slate-500"} />
+                    <Icon
+                      size={16}
+                      className={isActive ? theme.text : "text-slate-500"}
+                    />
                     {theme.label}
                   </button>
                 );
@@ -248,7 +275,11 @@ const JavaScript_TE: React.FC = () => {
                 onChange={onChange}
                 height="100%"
                 width="100%"
-                extensions={[getLanguageExtension(), autocompletion({ override: [] }), EditorView.lineWrapping]}
+                extensions={[
+                  getLanguageExtension(),
+                  autocompletion({ override: [] }),
+                  EditorView.lineWrapping,
+                ]}
                 theme={tokyoNight}
                 basicSetup={{
                   lineNumbers: true,
@@ -291,10 +322,9 @@ const JavaScript_TE: React.FC = () => {
           </div>
         </div>
 
-        {/* Live Preview + Console — RIGHT */}
-        <div className="h-full flex flex-col gap-2">
-          {/* Visual Output */}
-          <div className="flex-[3] flex flex-col bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-xl min-h-0">
+        {/* Output Panel */}
+        <div className="h-full w-full flex flex-col gap-2">
+          <div className="flex-1 flex flex-col bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-xl min-h-0">
             <div className="bg-[#161622] border-b border-[#2a2a3c] px-2 py-1 shrink-0 flex items-center justify-between">
               <span className="text-xs text-slate-500 font-mono uppercase tracking-wider">
                 Live Preview
@@ -310,36 +340,14 @@ const JavaScript_TE: React.FC = () => {
                 />
               ) : (
                 <div className="absolute inset-0 flex flex-col justify-center items-center bg-[#06060a]">
-                  <Lottie animationData={Animation} className="w-48 h-48 opacity-50 mb-4" />
+                  <Lottie
+                    animationData={Animation}
+                    className="w-48 h-48 opacity-50 mb-4"
+                  />
                   <p className="text-purple-500/50 font-exo font-bold tracking-widest uppercase text-sm border border-purple-500/20 px-6 py-2 rounded-lg bg-purple-500/5">
                     Awaiting Execution
                   </p>
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* Console Output */}
-          <div className="flex-[1] flex flex-col bg-[#0d0d12] border border-[#2a2a3c] rounded-xl overflow-hidden shadow-xl min-h-0">
-            <div className="bg-[#161622] border-b border-[#2a2a3c] px-2 py-1 shrink-0 flex items-center justify-between">
-              <span className="text-xs text-slate-500 font-mono uppercase tracking-wider">
-                Console
-              </span>
-            </div>
-            <div className="flex-1 bg-[#06060a] p-2 overflow-auto scrollbar-custom font-mono text-sm">
-              {!hasRunCode ? (
-                <div className="text-slate-600 italic">No output...</div>
-              ) : logs.length > 0 ? (
-                <div className="flex flex-col gap-1">
-                  {logs.map((log, i) => (
-                    <div key={i} className="text-slate-300 border-b border-white/5 pb-1">
-                      <span className="text-slate-500 mr-2">❯</span>
-                      {log}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-slate-600 italic">Console is empty</div>
               )}
             </div>
           </div>
@@ -354,7 +362,10 @@ const JavaScript_TE: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Evaluation_Popup evaluationResult={evaluationResult} setShowPopup={setShowPopup} />
+            <Evaluation_Popup
+              evaluationResult={evaluationResult}
+              setShowPopup={setShowPopup}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -362,4 +373,4 @@ const JavaScript_TE: React.FC = () => {
   );
 };
 
-export default React.memo(JavaScript_TE);
+export default React.memo(CssTE);

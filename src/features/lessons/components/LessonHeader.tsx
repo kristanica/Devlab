@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { lessonConfig } from "./LessonConfig";
+import { lessonConfig } from "./lessonConfig";
 
 interface LessonHeaderProps {
   subject: string;

@@ -8,17 +8,17 @@ import SplitPane from "react-split-pane";
 
 import { useGameStore } from "@/store/useGameStore";
 import { playSound } from "@/utils/DevlabSoundHandler";
-import { goToNextStage } from "../utils/Util_Navigation";
+import { goToNextStage } from "../utils/utilNavigation";
 import useFetchUserData from '@/services/api/useFetchUserData';
 import { useErrorShield } from "../../inventory/ErrorShield";
 import { GameModeProps } from "./BugBust"; // Use shared interface
 
 // PopUps
-import GameMode_Instruction_PopUp from "../popups/GameMode_Instruction_PopUp";
-import LevelCompleted_PopUp from "../popups/LevelCompleted_PopUp";
-import Gameover_PopUp from "../popups/Gameover_PopUp";
-import LevelAlreadyCompleted from "../popups/LevelAlreadyComplete_PopUp";
-import CorrectWrongPopUp from "../popups/CorrectWrong_PopUp";
+import GameMode_Instruction_PopUp from "../popups/GameModeInstructionPopUp";
+import LevelCompleted_PopUp from "../popups/LevelCompletedPopUp";
+import Gameover_PopUp from "../popups/GameoverPopUp";
+import LevelAlreadyCompleted from "../popups/LevelAlreadyCompletePopUp";
+import CorrectWrongPopUp from "../popups/CorrectWrongPopUp";
 
 // Lotties
 import loadingDots from "../../../assets/Lottie/LoadingDots.json";
@@ -26,10 +26,10 @@ import loadingDots from "../../../assets/Lottie/LoadingDots.json";
 // Components
 import GameHeader from "../components/GameHeader";
 import InstructionPanel from "../components/InstructionPanel";
-import Html_TE from "../editors/Html_TE";
-import Css_TE from "../editors/Css_TE";
-import JavaScript_TE from "../editors/JavaScript_TE";
-import Database_TE from "../editors/Database_TE";
+import HtmlTE from "../editors/HtmlTE";
+import CssTE from "../editors/CssTE";
+import JavaScriptTE from "../editors/JavaScriptTE";
+import DatabaseTE from "../editors/DatabaseTE";
 import GameFooter from "../components/GameFooter";
 
 const CodeRush: React.FC<GameModeProps> = ({ heart, roundKey, gameOver, submitAttempt, resetHearts }) => {
@@ -114,10 +114,10 @@ const CodeRush: React.FC<GameModeProps> = ({ heart, roundKey, gameOver, submitAt
 
   const renderEditor = useMemo(() => {
     switch (subject) {
-      case "Html": return <Html_TE />;
-      case "Css": return <Css_TE />;
-      case "JavaScript": return <JavaScript_TE />;
-      case "Database": return <Database_TE />;
+      case "Html": return <HtmlTE />;
+      case "Css": return <CssTE />;
+      case "JavaScript": return <JavaScriptTE />;
+      case "Database": return <DatabaseTE />;
       default: return <div className="text-white flex items-center justify-center w-full h-full font-exo text-xl">Invalid subject</div>;
     }
   }, [subject]);

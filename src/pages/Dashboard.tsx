@@ -2,24 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
-// Icons and Assets
 import { IoLogoHtml5, IoLogoCss3, IoLogoJavascript } from "react-icons/io5";
 import { FaDatabase } from "react-icons/fa";
 
-// Components
-import Loading from "../../../components/Loading";
-import ProfileCard from "../components/ProfileCard";
-import SkillArsenal from "../components/SkillArsenal";
-import RecentMissions from "../components/RecentMissions";
-import InventoryVault from "../components/InventoryVault";
+import Loading from "../components/Loading";
+import ProfileCard from "../features/dashboard/components/ProfileCard";
+import SkillArsenal from "../features/dashboard/components/SkillArsenal";
+import RecentMissions from "../features/dashboard/components/RecentMissions";
+import InventoryVault from "../features/dashboard/components/InventoryVault";
 
-// Hooks
 import useLevelBar from "@/hooks/useLevelBar";
 import useSubjProgressBar from "@/hooks/useSubjProgressBar";
 import useUserInventory from "@/hooks/useUserInventory";
 import useFetchUserData from '@/services/api/useFetchUserData';
 
-const DashboardPage: React.FC = () => {
+const Dashboard: React.FC = () => {
   const { userData, isLoading } = useFetchUserData();
   const { animatedExp } = useLevelBar();
   const { inventory, loading: inventoryLoading } = useUserInventory();
@@ -31,7 +28,6 @@ const DashboardPage: React.FC = () => {
 
   const [loadingDashboard, setLoadingDashboard] = useState(true);
 
-  // Initial Loading
   useEffect(() => {
     const hasLoadedBefore = sessionStorage.getItem("dashboardLoaded");
 
@@ -103,7 +99,6 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="w-full h-full p-4 lg:p-8 flex flex-col gap-6 lg:gap-8 bg-[#06060a] min-h-screen text-slate-200 selection:bg-purple-500/30 font-inter overflow-y-auto overflow-x-hidden">
-      {/* Page Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -119,13 +114,11 @@ const DashboardPage: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Top Section: Profile + Subject Progress */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         <ProfileCard userData={userData} animatedExp={animatedExp} />
         <SkillArsenal progressData={progressData} />
       </div>
 
-      {/* Bottom Section: Jump Back In + Inventory */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 flex-1 pb-10">
         <RecentMissions
           isLoading={isLoading}
@@ -138,4 +131,4 @@ const DashboardPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

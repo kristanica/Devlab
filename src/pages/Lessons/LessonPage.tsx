@@ -3,15 +3,14 @@ import { useParams } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import SplitPane from "react-split-pane";
 
-// Components
-import GameHeader from "../../gamemodes/components/GameHeader";
-import LessonInstructionPanel from "../../gamemodes/components/LessonInstructionPanel";
-import GameFooter from "../../gamemodes/components/GameFooter";
+import GameHeader from "../../features/gamemodes/components/GameHeader";
+import LessonInstructionPanel from "../../features/gamemodes/components/LessonInstructionPanel";
+import GameFooter from "../../features/gamemodes/components/GameFooter";
 
-import Html_TE from "../../gamemodes/editors/Html_TE";
-import Css_TE from "../../gamemodes/editors/Css_TE";
-import JavaScript_TE from "../../gamemodes/editors/JavaScript_TE";
-import Database_TE from "../../gamemodes/editors/Database_TE";
+import HtmlTE from "../../features/gamemodes/editors/HtmlTE";
+import CssTE from "../../features/gamemodes/editors/CssTE";
+import JavaScriptTE from "../../features/gamemodes/editors/JavaScriptTE";
+import DatabaseTE from "../../features/gamemodes/editors/DatabaseTE";
 
 const LessonPage: React.FC = () => {
   const { subject } = useParams<{ subject: string }>();
@@ -20,13 +19,13 @@ const LessonPage: React.FC = () => {
   const renderEditor = useMemo(() => {
     switch (subject) {
       case "Html":
-        return <Html_TE />;
+        return <HtmlTE />;
       case "Css":
-        return <Css_TE />;
+        return <CssTE />;
       case "JavaScript":
-        return <JavaScript_TE />;
+        return <JavaScriptTE />;
       case "Database":
-        return <Database_TE />;
+        return <DatabaseTE />;
       default:
         return <div className="text-white flex items-center justify-center w-full h-full font-exo text-xl">Invalid subject</div>;
     }
@@ -34,10 +33,8 @@ const LessonPage: React.FC = () => {
 
   return (
     <div className="h-screen bg-[#06060a] flex flex-col overflow-hidden">
-      {/* Header */}
       <GameHeader />
 
-      {/* Content — horizontal SplitPane */}
       <div className="relative flex-1 overflow-hidden flex">
         {/* @ts-ignore */}
         <SplitPane
@@ -52,19 +49,16 @@ const LessonPage: React.FC = () => {
             zIndex: 10,
           }}
         >
-          {/* Instruction Panel — LEFT */}
           <div className="h-full w-full flex flex-col p-2 md:p-3 overflow-hidden">
             <LessonInstructionPanel />
           </div>
 
-          {/* Code Editor — RIGHT */}
           <div className="h-full w-full flex flex-col p-2 md:p-3 overflow-hidden pl-0">
             {renderEditor}
           </div>
         </SplitPane>
       </div>
 
-      {/* Footer */}
       <GameFooter isCorrect={isCorrect} setLevelComplete={() => {}} setShowCodeWhisper={() => {}} setAlreadyComplete={() => {}} />
     </div>
   );

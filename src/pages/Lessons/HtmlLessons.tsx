@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { lessonConfig } from "../components/LessonConfig";
-import LessonHeader from "../components/LessonHeader";
-import LessonAbout from "../components/LessonAbout";
-import LessonCurriculum from "../components/LessonCurriculum";
-import LessonLockedModal from "../components/LessonLockedModal";
+import { lessonConfig } from "../../features/lessons/components/lessonConfig";
+import LessonHeader from "../../features/lessons/components/LessonHeader";
+import LessonAbout from "../../features/lessons/components/LessonAbout";
+import LessonCurriculum from "../../features/lessons/components/LessonCurriculum";
+import LessonLockedModal from "../../features/lessons/components/LessonLockedModal";
 
 import useFetchUserProgress from '@/services/api/useFetchUserProgress';
 import useFetchLevelsData from '@/services/api/useFetchLevelsData';
 
-const JavaScriptLessons: React.FC = () => {
-  const subject = "JavaScript";
+const HtmlLessons: React.FC = () => {
+  const subject = "Html";
   const { levelsData, isLoading } = useFetchLevelsData(subject);
   const {
     userProgress,
@@ -43,4 +43,4 @@ const JavaScriptLessons: React.FC = () => {
   );
 };
 
-export default JavaScriptLessons;
+export default HtmlLessons;

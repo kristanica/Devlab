@@ -7,17 +7,17 @@ import Lottie from "lottie-react";
 import SplitPane from "react-split-pane";
 
 import { playSound } from "@/utils/DevlabSoundHandler";
-import { goToNextStage } from "../utils/Util_Navigation";
+import { goToNextStage } from "../utils/utilNavigation";
 import { useErrorShield } from "../../inventory/ErrorShield";
 import useFetchUserData from '@/services/api/useFetchUserData';
 import { GameModeProps } from "./BugBust"; // Use shared interface
 
 // Pop Ups
-import GameMode_Instruction_PopUp from "../popups/GameMode_Instruction_PopUp";
-import LevelCompleted_PopUp from "../popups/LevelCompleted_PopUp";
-import LevelAlreadyCompleted from "../popups/LevelAlreadyComplete_PopUp";
-import CorrectWrongPopUp from "../popups/CorrectWrong_PopUp";
-import Gameover_PopUp from "../popups/Gameover_PopUp";
+import GameMode_Instruction_PopUp from "../popups/GameModeInstructionPopUp";
+import LevelCompleted_PopUp from "../popups/LevelCompletedPopUp";
+import LevelAlreadyCompleted from "../popups/LevelAlreadyCompletePopUp";
+import CorrectWrongPopUp from "../popups/CorrectWrongPopUp";
+import Gameover_PopUp from "../popups/GameoverPopUp";
 
 import loadingDots from "../../../assets/Lottie/LoadingDots.json";
 
