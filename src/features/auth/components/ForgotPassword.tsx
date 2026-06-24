@@ -6,7 +6,11 @@ import { auth } from "@/services/firebase";
 // Ui
 import { toast } from "react-toastify";
 
-function ForgotPassword({ onClose }) {
+interface ForgotPasswordProps {
+  onClose: () => void;
+}
+
+function ForgotPassword({ onClose }: ForgotPasswordProps) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -36,10 +40,11 @@ console.log(actionCodeSettings);
     onClose(); // close modal after success
   } catch (error) {
     console.error(error);
+    const firebaseError = error as { code?: string };
     let message = "Something went wrong. Please try again.";
-    if (error.code === "auth/user-not-found") {
+    if (firebaseError.code === "auth/user-not-found") {
       message = "No account found with that email.";
-    } else if (error.code === "auth/invalid-email") {
+    } else if (firebaseError.code === "auth/invalid-email") {
       message = "Invalid email format.";
     }
     toast.error(message, {

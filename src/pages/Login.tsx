@@ -3,12 +3,12 @@ import { AnimatePresence } from "framer-motion";
 import Lottie from "lottie-react";
 
 import Loading from "../assets/Lottie/LoadingDots.json";
-import ForgotPassword from "../components/ForgotPassword";
+import ForgotPassword from "@/features/auth/components/ForgotPassword";
 
-import { useAuthLogic } from "../components/Login/useAuthLogic";
-import LoginForm from "../components/Login/LoginForm";
-import RegisterForm from "../components/Login/RegisterForm";
-import AuthInteractiveUI from "../components/Login/AuthInteractiveUI";
+import { useAuthLogic } from "@/features/auth/components/useAuthLogic";
+import LoginForm from "@/features/auth/components/LoginForm";
+import RegisterForm from "@/features/auth/components/RegisterForm";
+import AuthInteractiveUI from "@/features/auth/components/AuthInteractiveUI";
 
 const Login: React.FC = () => {
   const authLogic = useAuthLogic();
@@ -16,8 +16,8 @@ const Login: React.FC = () => {
 
   const formVariants = {
     hidden: { opacity: 0, x: 40 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } },
-    exit: { opacity: 0, x: -40, transition: { duration: 0.3, ease: "easeIn" } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+    exit: { opacity: 0, x: -40, transition: { duration: 0.3, ease: "easeIn" as const } },
   };
 
   return (

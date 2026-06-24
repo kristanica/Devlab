@@ -10,7 +10,11 @@ import { validatePassword } from "@/utils/validations";
 import { toast } from "react-toastify";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
-export default function ResetPassword({ oobCode }) {
+interface ResetPasswordProps {
+  oobCode: string;
+}
+
+export default function ResetPassword({ oobCode }: ResetPasswordProps) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");

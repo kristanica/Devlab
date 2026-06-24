@@ -10,7 +10,11 @@ import { toast } from "react-toastify";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { validatePassword } from "@/utils/validations";
 
-export default function ResetPassword({ onClose }) {
+interface ResetPasswordProps {
+  onClose: () => void;
+}
+
+export default function ResetPassword({ onClose }: ResetPasswordProps) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -47,8 +51,9 @@ export default function ResetPassword({ onClose }) {
       onClose();
     } catch (error) {
       console.error(error);
+      const firebaseError = error as { code?: string };
       let message = "Something went wrong. Please try again.";
-      if (error.code === "auth/invalid-credential") message = "Current password is incorrect.";
+      if (firebaseError.code === "auth/invalid-credential") message = "Current password is incorrect.";
       toast.error(message, { position: "top-center", theme: "colored" });
     } finally {
       setLoading(false);

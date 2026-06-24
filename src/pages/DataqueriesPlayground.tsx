@@ -7,7 +7,7 @@ import DataqueriesHeader from "../components/DataqueriesPlayground/DataqueriesHe
 import DataqueriesSchema from "../components/DataqueriesPlayground/DataqueriesSchema";
 import DataqueriesEditor from "../components/DataqueriesPlayground/DataqueriesEditor";
 import DataqueriesOutput from "../components/DataqueriesPlayground/DataqueriesOutput";
-import DBPlaygroundEval_Popup from "../gameMode/GameModes_Popups/DbPlaygroundEval_PopUp";
+import DBPlaygroundEval_Popup from "../features/gamemodes/popups/DbPlaygroundEval_PopUp";
 
 // Hooks
 import { useDataqueriesLogic } from "../components/DataqueriesPlayground/useDataqueriesLogic";

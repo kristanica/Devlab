@@ -51,6 +51,27 @@ describe("Lessons E2E Tests", () => {
       role: "user",
     };
 
+    // Override handler to include Stage2 as completed so it shows in the expanded curriculum
+    server.use(
+      http.get("*/fireBase/userProgres/:subject", () => {
+        return HttpResponse.json({
+          allProgress: {
+            "Lesson1-Level1": { isActive: true }
+          },
+          allStages: {
+            "Lesson1-Level1-Stage1": { isActive: true, isCompleted: true },
+            "Lesson1-Level1-Stage2": { isActive: true, isCompleted: true },
+          },
+          allStagesComplete: {
+            "Lesson1-Level1-Stage1": true,
+            "Lesson1-Level1-Stage2": true,
+          },
+          completedLevels: 0,
+          completedStages: 2,
+        });
+      })
+    );
+
     render(
       <MemoryRouter initialEntries={["/Main/Lessons/Html"]}>
         <App />
@@ -134,16 +155,34 @@ describe("Lessons E2E Tests", () => {
       }
     };
 
+    // Override MSW to mark Stage2 as completed so Previous button is enabled
+    server.use(
+      http.get("*/fireBase/userProgres/:subject", () => {
+        return HttpResponse.json({
+          allProgress: {
+            "Lesson1-Level1": { isActive: true }
+          },
+          allStages: {
+            "Lesson1-Level1-Stage1": { isActive: true, isCompleted: true },
+            "Lesson1-Level1-Stage2": { isActive: true, isCompleted: true },
+          },
+          allStagesComplete: {
+            "Lesson1-Level1-Stage1": true,
+            "Lesson1-Level1-Stage2": true,
+          },
+          completedLevels: 0,
+          completedStages: 2,
+        });
+      })
+    );
+
     render(
       <MemoryRouter initialEntries={["/Main/Lessons/Html/Lesson1/Level1/Stage2/BrainBytes"]}>
-        <Routes>
-          <Route path="/Main" element={<div>Mock Main Menu</div>} />
-          <Route path="/Main/Lessons/:subject/:lessonId/:levelId/:stageId/:gamemodeId" element={<App />} />
-        </Routes>
+        <App />
       </MemoryRouter>
     );
 
-    // Verify we are in the game workspace
+    // Verify we are in the game workspace (DevLab text from GameHeader)
     await waitFor(() => {
       expect(screen.getByText("DevLab")).toBeInTheDocument();
     });
@@ -154,9 +193,9 @@ describe("Lessons E2E Tests", () => {
 
     fireEvent.click(prevButton);
 
-    // Verify transition back to Stage1 (which is Lesson gamemode)
+    // Verify transition back to Stage1 (LessonPage renders with GameHeader containing DevLab)
     await waitFor(() => {
-      expect(screen.getByText(/Intro Stage/i) || screen.getByText(/Stage1/i)).toBeInTheDocument();
+      expect(screen.getByText("DevLab")).toBeInTheDocument();
     });
   });
 

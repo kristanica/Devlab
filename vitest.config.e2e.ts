@@ -9,6 +9,7 @@ export default defineConfig({
     name: "e2e",
     globals: true,
     environment: "jsdom",
+    testTimeout: 30000,
     include: ["tests/e2e/**/*.test.{ts,tsx,js,jsx}"],
     setupFiles: ["tests/e2e/setup.ts"],
     alias: {

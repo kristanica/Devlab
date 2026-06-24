@@ -15,14 +15,12 @@ export let mockDb: MockDatabase = {
   achievements: {},
 };
 
-// Reset database state between tests
+// Reset database state between tests (mutate, don't reassign, so mock closures see the update)
 export const resetMockDb = () => {
-  mockDb = {
-    users: {},
-    inventory: {},
-    progress: {},
-    achievements: {},
-  };
+  mockDb.users = {};
+  mockDb.inventory = {};
+  mockDb.progress = {};
+  mockDb.achievements = {};
   snapshotListeners.length = 0;
 };
 
@@ -114,6 +112,15 @@ export const getFirestoreData = (path: string): any => {
   
   const subjects = ["Html", "Css", "JavaScript", "Database"];
   if (subjects.includes(parts[0])) {
+    if (parts.length === 4 && parts[2] === "Levels") {
+      const levelId = parts[3];
+      return {
+        id: levelId,
+        title: `${levelId} Title`,
+        expReward: 50,
+        coinsReward: 100,
+      };
+    }
     if (parts.length === 6 && parts[4] === "Stages") {
       const stageId = parts[5];
       let type = "Lesson";
@@ -207,7 +214,7 @@ vi.mock("firebase/auth", () => {
       return Promise.resolve();
     },
     signInWithEmailAndPassword: async (auth: any, email: string) => {
-      const matchedUser = Object.values(mockDb.users).find((u) => u.email === email);
+      const matchedUser = Object.values(mockDb.users).find((u) => u.email.toLowerCase() === email.toLowerCase());
       if (!matchedUser) {
         throw { code: "auth/invalid-credential" };
       }

@@ -7,7 +7,7 @@ import VerifyEmail from "./VerifyEmail"; // you'll create this
 export default function AuthActionHandler() {
   const [params] = useSearchParams();
   const mode = params.get("mode");
-  const oobCode = params.get("oobCode");
+  const oobCode = params.get("oobCode") || "";
 
   const [valid, setValid] = useState(true);
 

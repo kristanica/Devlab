@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar_Data } from "../Data/NavBar_Data";
+import { Navbar_Data } from "./NavBar_Data";
 import { LuCog } from "react-icons/lu";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { IoCodeSlash, IoCode } from "react-icons/io5";

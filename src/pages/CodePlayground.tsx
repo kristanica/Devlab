@@ -8,7 +8,7 @@ import PlaygroundHeader from "../components/CodePlayground/PlaygroundHeader";
 import PlaygroundEditor from "../components/CodePlayground/PlaygroundEditor";
 import PlaygroundPreview from "../components/CodePlayground/PlaygroundPreview";
 import PlaygroundConsole from "../components/CodePlayground/PlaygroundConsole";
-import CodePlaygroundEval_PopUp from "../gameMode/GameModes_Popups/CodePlaygroundEval_PopUp";
+import CodePlaygroundEval_PopUp from "../features/gamemodes/popups/CodePlaygroundEval_PopUp";
 
 // Hooks
 import { usePlaygroundLogic } from "../components/CodePlayground/usePlaygroundLogic";

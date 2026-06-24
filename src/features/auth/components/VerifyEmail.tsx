@@ -5,7 +5,11 @@ import { applyActionCode, checkActionCode } from "firebase/auth";
 import { auth } from "@/services/firebase";
 import { toast } from "react-toastify";
 
-export default function VerifyEmail({ oobCode }) {
+interface VerifyEmailProps {
+  oobCode: string;
+}
+
+export default function VerifyEmail({ oobCode }: VerifyEmailProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
@@ -16,7 +20,7 @@ export default function VerifyEmail({ oobCode }) {
       try {
         // Check if the code is valid and get the email
         const info = await checkActionCode(auth, oobCode);
-        setEmail(info.data.email);
+        setEmail(info.data.email ?? "");
 
         // Apply the action to verify the email
         await applyActionCode(auth, oobCode);

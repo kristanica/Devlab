@@ -1,10 +1,10 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { IoLockOpen, IoEye, IoEyeOff, IoMail } from "react-icons/io5";
+import { useAuthLogic } from "./useAuthLogic";
 
 interface LoginFormProps {
-  formVariants: any;
-  authLogic: any;
+  formVariants: Variants;
+  authLogic: ReturnType<typeof useAuthLogic>;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ formVariants, authLogic }) => {

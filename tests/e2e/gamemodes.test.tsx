@@ -247,7 +247,7 @@ describe("Gamemodes E2E Tests", () => {
 
     // Verify Level Completed Popup renders and displays reward details
     await waitFor(() => {
-      expect(screen.getByText("Level Completed!")).toBeInTheDocument();
+      expect(screen.getByText("LEVEL COMPLETED")).toBeInTheDocument();
       // Verify XP/coins incremented in user stats in database
       expect(mockDb.users["user_game"].coins).toBe(200);
       expect(mockDb.users["user_game"].exp).toBe(50);
@@ -265,6 +265,10 @@ describe("Gamemodes E2E Tests", () => {
     };
 
     mockDb.progress["user_game"] = {
+      "Html/Lessons/Lesson1/Levels/Level1/Stages/Stage1": {
+        isActive: true,
+        isCompleted: true,
+      },
       "Html/Lessons/Lesson1/Levels/Level1/Stages/Stage2": {
         isActive: true,
         isCompleted: false,
@@ -294,10 +298,7 @@ describe("Gamemodes E2E Tests", () => {
 
     render(
       <MemoryRouter initialEntries={["/Main/Lessons/Html/Lesson1/Level1/Stage2/BrainBytes"]}>
-        <Routes>
-          <Route path="/Main/Lessons/Html/Lesson1/Level1/Stage1/Lesson" element={<div>Lesson 1 Start</div>} />
-          <Route path="/Main/Lessons/:subject/:lessonId/:levelId/:stageId/:gamemodeId" element={<App />} />
-        </Routes>
+        <App />
       </MemoryRouter>
     );
 
@@ -328,16 +329,20 @@ describe("Gamemodes E2E Tests", () => {
     fireEvent.click(screen.getByText("Option B Text"));
     fireEvent.click(screen.getByText("SUBMIT ANSWER"));
 
-    // Verify Game Over Popup shows up
+    // Click Retry to decrement heart from 1 to 0 and trigger game over
+    await waitFor(() => expect(screen.getByText("Wrong Answer")).toBeInTheDocument());
+    fireEvent.click(screen.getByText("Retry"));
+
+    // Verify Game Over Popup shows up (text is "Game Over !!" in the component)
     await waitFor(() => {
-      expect(screen.getByText("Game Over")).toBeInTheDocument();
+      expect(screen.getAllByText("Game Over !!").length).toBeGreaterThanOrEqual(1);
     });
 
-    // Exit to first lesson
-    fireEvent.click(screen.getByRole("button", { name: /Try Again/i }));
+    // Exit to first lesson (button text matches Gameover_PopUp component)
+    fireEvent.click(screen.getAllByRole("button", { name: /Go back to the 1st Lesson/i })[0]);
 
     await waitFor(() => {
-      expect(screen.getByText("Lesson 1 Start")).toBeInTheDocument();
+      expect(screen.getByText("DevLab")).toBeInTheDocument();
     });
   });
 

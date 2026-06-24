@@ -6,44 +6,47 @@ import { Toaster } from "react-hot-toast";
 import { auth } from "./services/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 // COMPONENTS
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./features/landing/pages/LandingPage";
 import Login from "./pages/Login";
-import Layout from "./Layout/Layout";
-import Dashboard from "./pages/Dashboard";
-import Achievements from "./pages/Achievements";
-import Shop from "./pages/Shop";
+import Layout from "./components/Layout";
+import Dashboard from "./features/dashboard/pages/DashboardPage";
+import Achievements from "./features/achievements/pages/AchievementsPage";
+import ShopPage from "./features/shop/pages/ShopPage";
 import Settings from "./pages/Settings";
 import CodePlayground from "./pages/CodePlayground";
 import DataqueriesPlayground from "./pages/DataqueriesPlayground";
 // ADMIN
-import AdminLayout from "./Layout/AdminLayout";
-import ContentManagement from "./AdminComponents/ContentManagement";
-import UserManagement from "./AdminComponents/UserManagement";
+import AdminLayout from "@/features/admin/layouts/AdminLayout";
+import ContentManagement from "@/features/admin/components/ContentManagement";
+import UserManagement from "@/features/admin/components/UserManagement";
 // DISPLAY LESSON/LEVELS PAGE
-import HtmlLessons from "./pages/Lessons/HtmlLessons";
-import CssLessons from "./pages/Lessons/CssLessons";
-import JavaScriptLessons from "./pages/Lessons/JavaScriptLessons";
-import DataLessons from "./pages/Lessons/DataLessons";
+import HtmlLessons from "./features/lessons/pages/HtmlLessons";
+import CssLessons from "./features/lessons/pages/CssLessons";
+import JavaScriptLessons from "./features/lessons/pages/JavaScriptLessons";
+import DataLessons from "./features/lessons/pages/DataLessons";
 
 // GAME MODES
-import GameModeRouter from "./gameMode/GameModes_Utils/GameModeRouter";
+import GameModeRouter from "./features/gamemodes/components/GameModeRouter";
 // Utils
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FullscreenLoader from "./components/FullScreenLoader";
 // @ts-ignore
 import { loadSounds } from "./utils/DevlabSoundHandler";
 // @ts-ignore
-import AuthActionHandler from "./components/AuthActionHandler";
 import NotFound from "./pages/NotFound";
+import AuthActionHandler from "./features/auth/components/AuthActionHandler";
 
 const App = () => {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  }));
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      }),
+  );
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAdmin, setAdmin] = useState<boolean>(false);
@@ -137,7 +140,7 @@ const App = () => {
             <Route path="Lessons/Database" element={<DataLessons />} />
 
             <Route path="Achievements" element={<Achievements />} />
-            <Route path="Shop" element={<Shop />} />
+            <Route path="Shop" element={<ShopPage />} />
             <Route path="Settings" element={<Settings />} />
           </Route>
 
