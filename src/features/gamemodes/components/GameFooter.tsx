@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { goToNextStage } from "../utils/utilNavigation";
 
 // Hooks
-import useFetchUserData from '@/services/api/useFetchUserData';
-import useFetchGameModeData from '@/services/api/useFetchGameModeData';
-import useFetchUserProgress from '@/services/api/useFetchUserProgress';
+import useFetchUserData from "@/services/api/useFetchUserData";
+import useFetchGameModeData from "@/services/api/useFetchGameModeData";
+import useFetchUserProgress from "@/services/api/useFetchUserProgress";
 import { goToPreviousStage } from "../utils/goToPrev";
 
 // Motion
@@ -105,7 +105,8 @@ const GameFooter: React.FC<GameFooterProps> = ({
   const isDisabled = isBrainBytes && !isStageLocked;
 
   const isStageCompleted = userStageCompleted?.[stageKey] ?? false;
-  const isPrevDisabled = stageId === "Stage1" || (!isStageCompleted && gamemodeId !== "Lesson");
+  const isPrevDisabled =
+    stageId === "Stage1" || (!isStageCompleted && gamemodeId !== "Lesson");
 
   return (
     <>
@@ -116,13 +117,17 @@ const GameFooter: React.FC<GameFooterProps> = ({
       )}
 
       <div className="h-14 md:h-16 shrink-0 bg-[#06060a]/95 backdrop-blur-md border-t border-[#1e1e2e] px-4 md:px-6 py-2 flex justify-between items-center text-slate-200 sticky bottom-0 z-20 font-inter shadow-[0_-4px_30px_rgba(0,0,0,0.6)]">
-        
         {/* Left: Items & Level Info */}
         <div className="flex items-center gap-4 flex-1 justify-start min-w-0 overflow-hidden">
-          <ItemsUse setShowCodeWhisper={setShowCodeWhisper} gamemodeId={gamemodeId} />
+          <ItemsUse
+            setShowCodeWhisper={setShowCodeWhisper}
+            gamemodeId={gamemodeId}
+          />
           <div className="flex flex-col hidden sm:flex truncate">
             <p className="text-xs md:text-sm font-bold text-white tracking-wide truncate">
-              {levelData ? `${levelData.levelOrder}. ${levelData.title}` : "Loading..."}
+              {levelData
+                ? `${levelData.levelOrder}. ${levelData.title}`
+                : "Loading..."}
             </p>
             <p className="text-[10px] md:text-xs font-semibold text-emerald-400 uppercase tracking-widest mt-0.5">
               {levelData ? `+ ${levelData.expReward} XP` : ""}
@@ -134,7 +139,18 @@ const GameFooter: React.FC<GameFooterProps> = ({
         <div className="flex items-center gap-3 justify-center shrink-0">
           {/* Previous Button */}
           <button
-            onClick={!isPrevDisabled ? () => goToPreviousStage({ subject, lessonId, levelId, stageId, navigate }) : undefined}
+            onClick={
+              !isPrevDisabled
+                ? () =>
+                    goToPreviousStage({
+                      subject,
+                      lessonId,
+                      levelId,
+                      stageId,
+                      navigate,
+                    })
+                : undefined
+            }
             disabled={isPrevDisabled || isLoading}
             className={`px-5 md:px-6 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-300 ${
               isPrevDisabled || isLoading
@@ -162,13 +178,16 @@ const GameFooter: React.FC<GameFooterProps> = ({
         {/* Right: Coins */}
         <div className="flex items-center gap-3 flex-1 justify-end hidden sm:flex">
           <div className="flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 px-3 py-1.5 rounded-lg shadow-inner">
-            <img src={CoinsIcon} alt="Coins" className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-md" />
+            <img
+              src={CoinsIcon}
+              alt="Coins"
+              className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-md"
+            />
             <p className="text-sm md:text-base font-bold text-yellow-400 drop-shadow-sm">
               {userData ? userData.coins : "0"}
             </p>
           </div>
         </div>
-
       </div>
     </>
   );

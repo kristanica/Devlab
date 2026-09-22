@@ -9,7 +9,11 @@ interface SettingsProfileImageProps {
   refetch: () => void;
 }
 
-const SettingsProfileImage: React.FC<SettingsProfileImageProps> = ({ userData, uploadImage, refetch }) => {
+const SettingsProfileImage: React.FC<SettingsProfileImageProps> = ({
+  userData,
+  uploadImage,
+  refetch,
+}) => {
   return (
     <>
       <motion.div
@@ -26,7 +30,7 @@ const SettingsProfileImage: React.FC<SettingsProfileImageProps> = ({ userData, u
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d12] via-transparent to-transparent" />
         </div>
-        
+
         <label className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/10 rounded-lg text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors">
           <FaCamera /> Change Cover
           <input
@@ -79,7 +83,12 @@ const SettingsProfileImage: React.FC<SettingsProfileImageProps> = ({ userData, u
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        onClick={() => window.open("https://drive.google.com/file/d/1EQhmkRyEOiV8Vv-zJVzRXMLS6z99tT96/view", "_blank")}
+        onClick={() =>
+          window.open(
+            "https://drive.google.com/file/d/1EQhmkRyEOiV8Vv-zJVzRXMLS6z99tT96/view",
+            "_blank",
+          )
+        }
         className="sm:hidden w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm tracking-wide bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500 hover:text-white transition-all shadow-[0_0_15px_rgba(99,102,241,0.2)]"
       >
         <FaMobileAlt /> Get Mobile App
