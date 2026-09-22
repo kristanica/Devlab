@@ -1,6 +1,6 @@
 import React from "react";
 import { FaTrophy, FaLock } from "react-icons/fa";
-import { ACHIEVEMENTS_THEME } from "./achievementConfig";
+import { ACHIEVEMENTS_THEME } from "./AchievementConfig";
 
 interface AchievementSectionProps {
   subjectKey: string;
@@ -15,9 +15,10 @@ const AchievementSection: React.FC<AchievementSectionProps> = ({
   data,
   loading,
   userAchievements,
-  handleClaim
+  handleClaim,
 }) => {
-  const theme = ACHIEVEMENTS_THEME[subjectKey as keyof typeof ACHIEVEMENTS_THEME];
+  const theme =
+    ACHIEVEMENTS_THEME[subjectKey as keyof typeof ACHIEVEMENTS_THEME];
   const SubjectIcon = theme.icon;
 
   return (
@@ -26,15 +27,20 @@ const AchievementSection: React.FC<AchievementSectionProps> = ({
         <div className="w-10 h-10 rounded-lg bg-[#161622] border border-[#2a2a3c] flex items-center justify-center">
           <SubjectIcon className={`text-xl ${theme.text}`} />
         </div>
-        <h2 className={`font-exo text-2xl font-bold tracking-tight ${theme.text}`}>
+        <h2
+          className={`font-exo text-2xl font-bold tracking-tight ${theme.text}`}
+        >
           {theme.title}
         </h2>
       </div>
 
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="bg-[#0d0d12] border border-[#1e1e2e] rounded-xl h-56 animate-pulse flex flex-col p-5 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="bg-[#0d0d12] border border-[#1e1e2e] rounded-xl h-56 animate-pulse flex flex-col p-5 gap-4"
+            >
               <div className="w-12 h-12 bg-[#161622] rounded-full self-center" />
               <div className="h-4 bg-[#161622] rounded w-3/4 self-center mt-2" />
               <div className="h-3 bg-[#161622] rounded w-full mt-2" />
@@ -47,7 +53,8 @@ const AchievementSection: React.FC<AchievementSectionProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
           {data?.map((item) => {
             const isUnlocked = !!userAchievements?.[item.id];
-            const isClaimed = isUnlocked && userAchievements[item.id]?.isClaimed;
+            const isClaimed =
+              isUnlocked && userAchievements[item.id]?.isClaimed;
 
             return (
               <div
@@ -58,17 +65,27 @@ const AchievementSection: React.FC<AchievementSectionProps> = ({
                     : "bg-[#06060a] border-[#1e1e2e] opacity-60 grayscale hover:grayscale-0"
                 }`}
               >
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center border transition-all mb-4 ${
-                  isClaimed
-                    ? "bg-green-500/10 border-green-500/30 text-green-500"
-                    : isUnlocked 
-                      ? `bg-[#161622] border-[#2a2a3c] ${theme.text} ${theme.glow}`
-                      : "bg-[#0d0d12] border-[#1e1e2e] text-slate-600"
-                }`}>
-                  {isClaimed ? <FaTrophy size={28} /> : isUnlocked ? <SubjectIcon size={32} /> : <FaLock size={24} />}
+                <div
+                  className={`w-16 h-16 rounded-full flex items-center justify-center border transition-all mb-4 ${
+                    isClaimed
+                      ? "bg-green-500/10 border-green-500/30 text-green-500"
+                      : isUnlocked
+                        ? `bg-[#161622] border-[#2a2a3c] ${theme.text} ${theme.glow}`
+                        : "bg-[#0d0d12] border-[#1e1e2e] text-slate-600"
+                  }`}
+                >
+                  {isClaimed ? (
+                    <FaTrophy size={28} />
+                  ) : isUnlocked ? (
+                    <SubjectIcon size={32} />
+                  ) : (
+                    <FaLock size={24} />
+                  )}
                 </div>
 
-                <h3 className={`font-exo font-bold text-lg mb-2 tracking-tight ${isUnlocked ? "text-white" : "text-slate-400"}`}>
+                <h3
+                  className={`font-exo font-bold text-lg mb-2 tracking-tight ${isUnlocked ? "text-white" : "text-slate-400"}`}
+                >
                   {item.title}
                 </h3>
                 <p className="text-slate-400 text-sm mb-6 flex-1 line-clamp-3">
@@ -86,7 +103,11 @@ const AchievementSection: React.FC<AchievementSectionProps> = ({
                         : "bg-[#0d0d12] border-[#1e1e2e] text-slate-600 cursor-not-allowed"
                   }`}
                 >
-                  {isClaimed ? "Claimed" : isUnlocked ? "Claim Reward" : "Locked"}
+                  {isClaimed
+                    ? "Claimed"
+                    : isUnlocked
+                      ? "Claim Reward"
+                      : "Locked"}
                 </button>
               </div>
             );
